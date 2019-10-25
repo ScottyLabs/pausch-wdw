@@ -1,9 +1,10 @@
 import React from 'react';
+import Panel from './Panel';
 
 export default function App() {
   return (
     <div>
-      Here is some example text.
+      <Panel color='blue' isSelected={true} />
     </div>
   );
 }
