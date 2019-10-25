@@ -1,5 +1,6 @@
 import React from 'react';
 import Panels from './Panels';
+import Header from './builtin/Header';
 import ColorSelector from './builtin/ColorSelector';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <div>
+      <Header name='Srinu Lade' colors={colors} />
       <Panels colors={Object.values(colors)} selectedIndex={selectedIndex} 
         selectPanel={selectPanel} />
       <ColorSelector selectedColor={colors[selectedIndex]} 
