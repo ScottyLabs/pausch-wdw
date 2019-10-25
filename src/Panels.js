@@ -10,21 +10,19 @@ export default function Panels(props) {
   }
   */
 
-  let panels = [];
-  for (let i = 0; i < props.colors.length; i++) {
-    panels.push(
-      <Panel key={i} id={i} color={props.colors[i]}
-          isSelected={props.selectedIndex === i} />
-    );
-  }
-
-  return <div>{panels}</div>;
+  return (
+    <div id='panels'>
+      {props.colors.map((color, i) => (
+        <Panel key={i} color={color} isSelected={props.selectedIndex === i} />
+      ))}
+    </div>
+  );
 
   /*
   <div id='panels>
     <Panel color='red' isSelected={false} />,
-    <Panel color='green' isSelected={false} />,
-    <Panel color='blue' isSelected={true} />,
+    <Panel color='blue' isSelected={false} />,
+    <Panel color='green' isSelected={true} />,
   </div>
   */
 }
