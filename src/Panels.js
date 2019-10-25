@@ -7,13 +7,16 @@ export default function Panels(props) {
   props = {
     colors: ['red', 'blue', ....],
     selectedIndex: 2,
+    selectPanel: number -> ()
   }
   */
 
   return (
     <div id='panels'>
       {props.colors.map((color, i) => (
-        <Panel key={i} color={color} isSelected={props.selectedIndex === i} />
+        <Panel key={i} index={i} 
+          color={color} isSelected={props.selectedIndex === i}
+          selectPanel={props.selectPanel} />
       ))}
     </div>
   );
