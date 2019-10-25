@@ -1,10 +1,13 @@
 import React from 'react';
-import Panel from './Panel';
+import Panels from './Panels';
 
 export default function App() {
+  const selectedIndex = 0;
+  const colors = ["red", "blue", "green"];
+
   return (
     <div>
-      <Panel color='blue' isSelected={true} />
+      <Panels colors={colors} selectedIndex={selectedIndex} />
     </div>
   );
 }
