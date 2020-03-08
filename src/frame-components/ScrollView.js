@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class ScrollView extends Component {
-    state = {  }
-    render() {
-        return (  );
-    }
-}
+// class ScrollView extends Component {
+//     state = {  }
+//     render() {
+//         return (  );
+//     }
+// }
 
-export default ScrollView;
+// export default ScrollView;

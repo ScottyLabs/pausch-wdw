@@ -1,10 +1,25 @@
-import React, { Component } from 'react';
+import React from "react";
+import Frame from "./Frame";
 
-class FrameView extends Component {
-    state = {  }
-    render() {
-        return (  );
-    }
+export default function FrameView(props) {
+
+  return (
+    <div id="frame-view">
+      {props.frames.map((colors, duration, i) => (
+        <Frame
+          key={i}
+          index={i}
+          duration={duration}
+          colors={colors}
+          selectedFrameIndex={props.selectedFrameIndex === i}
+          selectFrame={props.selectFrame}
+        />
+      ))}
+      <button
+        onClick={() => this.props.addFrame()}
+      >
+        Add Frame +
+      </button>
+    </div>
+  );
 }
-
-export default FrameView;
