@@ -1,20 +1,26 @@
-import React from 'react';
-import Time from './Time.js'
-
-class Frame extends Component {
-    state = {
-        duration: 0
-      }
-
-    handleChange = value => {
-        const duration = this.state.duration;
-        duration = value;
-        this.setState({duration});
-    }
-    
-    render() { 
-        return (  );
-    }
-}
- 
 export default Frame;
+
+import React from "react";
+import SmallPanelView from "./SmallPanelView";
+import Time from "./Time.js";
+
+export default function Frame(props) {
+  function handleChange(newDuration) {
+    props.updateDuration(newDuration, props.index);
+  }
+
+  return (
+    <div id="panels">
+      {props.colors.map((color, i) => (
+        <SmallPanelView
+          key={i}
+          index={i}
+          color={color}
+          isSelected={props.selectedIndex === i}
+          selectPanel={props.selectPanel}
+        />
+      ))}
+      <Time onChange={handleChange} />
+    </div>
+  );
+}

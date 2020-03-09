@@ -10,7 +10,7 @@ class Time extends Component {
         <NumericInput
           min={0}
           max={30}
-          value={10}
+          value={this.props.duration}
           onChange={value => this.props.onChange(value)}
         />
       </div>

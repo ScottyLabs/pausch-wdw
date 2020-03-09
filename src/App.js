@@ -44,7 +44,7 @@ export default function App() {
     var oldSize = frameCount;
     setFrames({
       ...frames,
-      [oldSize]: Object.assign({}, defaultFrame),
+      [oldSize]: Object.assign({}, defaultFrame)
     });
     setFrameCount(oldSize + 1);
     console.log("Frame added. Frames size: " + frames.size);
@@ -53,8 +53,23 @@ export default function App() {
   }
 
   function updateColor(newColor) {
-    setFrames({ ...frames, [selectedFrameIndex]: { ...colors, [selectedPanelIndex]: newColor} });
-    console.log("Frame " + selectedFrameIndex + ", Panel " + selectedPanelIndex + " color changed");
+    var updatedFrame = Object.assign({}, frames[selectedFrameIndex]);
+    updatedFrame.colors[selectedPanelIndex] = newColor;
+    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
+    console.log(
+      "Frame " +
+        selectedFrameIndex +
+        ", Panel " +
+        selectedPanelIndex +
+        " color changed"
+    );
+  }
+
+  function updateDuration(newDuration, frameIndex) {
+    var updatedFrame = Object.assign({}, frames[frameIndex]);
+    updatedFrame.duration = newDuration;
+    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
+    console.log("Frame " + selectedFrameIndex + " time changed");
   }
 
   return (
@@ -74,6 +89,7 @@ export default function App() {
         addFrame={addFrame}
         selectedFrameIndex={selectedFrameIndex}
         selectFrame={selectFrame}
+        updateDuration={updateDuration}
       />
     </div>
   );

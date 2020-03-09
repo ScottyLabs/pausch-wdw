@@ -10,11 +10,13 @@ export default function FrameView(props) {
           key={i}
           index={i}
           duration={frame.duration}
-          colors={frame.colors}
+          colors={Object.values(frame.colors)}
           isSelected={props.selectedFrameIndex === i}
           selectFrame={props.selectFrame}
+          updateDuration={props.updateDuration}
         />
       ))}
+      <br />
       <Button
         color="inherit"
         onClick={function() {
