@@ -35,7 +35,7 @@ const Header = (props) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{marginBottom : 30}}>
       <Toolbar>
         <Typography variant="h6" color="inherit" className={classes.flex}>
             Bridge UI Editor - {props.name}
