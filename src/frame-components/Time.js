@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import NumericInput from 'react-numeric-input';
 
 class Time extends Component {
-  //state = {  }
 
   render() {
     return (

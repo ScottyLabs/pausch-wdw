@@ -10,7 +10,7 @@ export default function Frame(props) {
   }
 
   return (
-    <div id="panels">
+    <div className = "frame">
       {props.colors.map((color, i) => (
         <SmallPanelView
           key={i}

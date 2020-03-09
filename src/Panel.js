@@ -13,13 +13,13 @@ export default function Panel(props) {
   */
 
   return (
-    <div 
+    <div
       className='panel'
       style={{
         backgroundColor: props.color,
         borderColor: props.isSelected ? '#3f51b5' : '#808080',
       }}
-      onClick={function() { 
+      onClick={function() {
         props.selectPanel(props.index)
       }}
     >
