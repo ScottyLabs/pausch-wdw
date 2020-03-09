@@ -1,5 +1,3 @@
-export default Frame;
-
 import React from "react";
 import SmallPanelView from "./SmallPanelView";
 import Time from "./Time.js";
@@ -10,17 +8,19 @@ export default function Frame(props) {
   }
 
   return (
-    <div className = "frame">
+    <div
+      className="frame"
+      style={{
+        borderColor: props.isSelected ? "#3f51b5" : "#808080"
+      }}
+      onClick={function() {
+        props.selectFrame(props.index);
+      }}
+    >
       {props.colors.map((color, i) => (
-        <SmallPanelView
-          key={i}
-          index={i}
-          color={color}
-          isSelected={props.selectedIndex === i}
-          selectPanel={props.selectPanel}
-        />
+        <SmallPanelView key={i} index={i} color={color} />
       ))}
-      <Time onChange={handleChange} />
+      <Time onChange={handleChange} duration={props.duration} />
     </div>
   );
 }

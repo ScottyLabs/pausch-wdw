@@ -1,6 +1,5 @@
 import React from "react";
 import Frame from "./Frame";
-import { Button } from "@material-ui/core";
 
 export default function FrameView(props) {
   return (
@@ -16,15 +15,6 @@ export default function FrameView(props) {
           updateDuration={props.updateDuration}
         />
       ))}
-      <br />
-      <Button
-        color="inherit"
-        onClick={function() {
-          props.addFrame();
-        }}
-      >
-        Add Frame
-      </Button>
     </div>
   );
 }

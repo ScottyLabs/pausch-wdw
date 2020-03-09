@@ -5,8 +5,8 @@ class Time extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Duration in seconds: </h1>
+      <div className="time-input">
+        Duration:
         <NumericInput
           min={0}
           max={30}

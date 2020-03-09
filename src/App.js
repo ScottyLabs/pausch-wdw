@@ -2,6 +2,8 @@ import React from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
+import FrameView from "./frame-components/FrameView";
+import { Button } from "@material-ui/core";
 
 export default function App() {
   const defaultFrame = {
@@ -21,7 +23,7 @@ export default function App() {
   const [selectedPanelIndex, setPanelIndex] = React.useState(0);
   const [selectedFrameIndex, setFrameIndex] = React.useState(0);
   const [frames, setFrames] = React.useState({
-    0: Object.assign({}, defaultFrame) // clones defaultFrame object
+    0: JSON.parse(JSON.stringify(defaultFrame)) // clones defaultFrame object
   });
   const [frameCount, setFrameCount] = React.useState(1);
 
@@ -44,7 +46,7 @@ export default function App() {
     var oldSize = frameCount;
     setFrames({
       ...frames,
-      [oldSize]: Object.assign({}, defaultFrame)
+      [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
     });
     setFrameCount(oldSize + 1);
     console.log("Frame added. Frames size: " + frames.size);
@@ -81,9 +83,12 @@ export default function App() {
         selectPanel={selectPanel}
       />
       <ColorSelector
-        selectedColor={frames[selectedFrameIndex].colors[selectedIndex]}
+        selectedColor={frames[selectedFrameIndex].colors[selectedPanelIndex]}
         updateColor={updateColor}
       />
+      <Button color="inherit" onClick={addFrame}>
+        Add Frame
+      </Button>
       <FrameView
         frames={Object.values(frames)}
         addFrame={addFrame}
