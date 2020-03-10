@@ -78,7 +78,7 @@ export default function App() {
         ctr++;
       }
     }
-    setFrames({ newFrames });
+    setFrames(newFrames);
     setFrameCount(oldSize - 1);
     console.log("Frame deleted. Frames size: " + frameCount);
     selectFrame(oldSize - 2);
@@ -97,7 +97,7 @@ export default function App() {
         ctr++;
       }
     }
-    setFrames({ newFrames });
+    setFrames(newFrames);
     setFrameCount(oldSize + 1);
     setFrameIndex(oldSize);
     selectPanel(0);
@@ -122,10 +122,6 @@ export default function App() {
     updatedFrame.duration = newDuration;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log("Frame " + selectedFrameIndex + " time changed");
-  }
-
-  async function getColors() {
-    return await Object.values(frames[selectedFrameIndex].colors);
   }
 
   return (
