@@ -86,6 +86,21 @@ export default function App() {
   }
 
   function duplicateFrame() {
+    var oldSize = frameCount;
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      newFrames[ctr] = frames[i];
+      ctr++;
+      if (i === selectedFrameIndex) {
+        newFrames[ctr] = frames[i];
+        ctr++;
+      }
+    }
+    setFrames({ newFrames });
+    setFrameCount(oldSize + 1);
+    setFrameIndex(oldSize);
+    selectPanel(0);
     console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
@@ -107,6 +122,10 @@ export default function App() {
     updatedFrame.duration = newDuration;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log("Frame " + selectedFrameIndex + " time changed");
+  }
+
+  async function getColors() {
+    return await Object.values(frames[selectedFrameIndex].colors);
   }
 
   return (
