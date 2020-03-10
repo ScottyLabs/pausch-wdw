@@ -49,9 +49,43 @@ export default function App() {
       [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
     });
     setFrameCount(oldSize + 1);
-    console.log("Frame added. Frames size: " + frames.size);
+    console.log("Frame added. Frames size: " + frameCount);
     setFrameIndex(oldSize);
     selectPanel(0);
+  }
+
+  function deleteFrame() {
+    var oldSize = frameCount;
+
+    if (oldSize <= 1) return;
+    /*const newFrames = Object.keys(frames).filter(
+      frame => frame.id !== selectedFrameIndex
+    );
+   
+    setFrames({ newFrames }); 
+    const newFrames = Object.keys(frames).reduce((object, key) => {
+      if (key !== selectedFrameIndex) {
+        object[key] = frames[key];
+      }
+      return object;
+    }, {});*/
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      if (Object.keys(frames)[i] !== selectedFrameIndex) {
+        newFrames[ctr] = frames[ctr];
+        ctr++;
+      }
+    }
+    setFrames({ newFrames });
+    setFrameCount(oldSize - 1);
+    console.log("Frame deleted. Frames size: " + frameCount);
+    selectFrame(oldSize - 2);
+    selectPanel(0);
+  }
+
+  function duplicateFrame() {
+    console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
   function updateColor(newColor) {
@@ -88,6 +122,12 @@ export default function App() {
       />
       <Button color="inherit" onClick={addFrame}>
         Add Frame
+      </Button>
+      <Button color="inherit" onClick={deleteFrame}>
+        Delete Frame
+      </Button>
+      <Button color="inherit" onClick={duplicateFrame}>
+        Duplicate Frame
       </Button>
       <FrameView
         frames={Object.values(frames)}
