@@ -61,8 +61,8 @@ export default function App() {
     /*const newFrames = Object.keys(frames).filter(
       frame => frame.id !== selectedFrameIndex
     );
-   
-    setFrames({ newFrames }); 
+
+    setFrames({ newFrames });
     const newFrames = Object.keys(frames).reduce((object, key) => {
       if (key !== selectedFrameIndex) {
         object[key] = frames[key];
@@ -72,8 +72,9 @@ export default function App() {
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      if (Object.keys(frames)[i] !== selectedFrameIndex) {
-        newFrames[ctr] = frames[ctr];
+      if (i !== selectedFrameIndex) {
+        console.log("kept frame: " + i);
+        newFrames[i] = frames[ctr];
         ctr++;
       }
     }
