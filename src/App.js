@@ -4,9 +4,9 @@ import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 import Frames from "./frame-components/Frames";
 import { Button } from "@material-ui/core";
-// import AddBoxIcon from '@material-ui/icons/AddBox';
-// import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
-// import DeleteIcon from "@material-ui/icons/Delete";
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -171,7 +171,7 @@ export default function App() {
           variant="contained"
           color="primary"
           className={classes.button}
-          // startIcon={<AddBoxIcon />}
+          startIcon={<AddBoxIcon />}
           onClick={addFrame}
         >
           Add Frame
@@ -180,7 +180,7 @@ export default function App() {
           variant="contained"
           color="primary"
           className={classes.button}
-          // startIcon={<AddToPhotosIcon />}
+          startIcon={<AddToPhotosIcon />}
           onClick={duplicateFrame}
         >
           Duplicate Frame
@@ -189,7 +189,7 @@ export default function App() {
           variant="contained"
           color="secondary"
           className={classes.button}
-          // startIcon={<DeleteIcon />}
+          startIcon={<DeleteIcon />}
           onClick={deleteFrame}
         >
           Delete Frame
