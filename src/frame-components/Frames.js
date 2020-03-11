@@ -1,9 +1,9 @@
 import React from "react";
 import Frame from "./Frame";
 
-export default function FrameView(props) {
+export default function Frames(props) {
   return (
-    <div id="frame-view">
+    <div id="frames">
       {props.frames.map((frame, i) => (
         <Frame
           key={i}

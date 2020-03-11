@@ -17,10 +17,13 @@ export default function Frame(props) {
         props.selectFrame(props.index);
       }}
     >
-      {props.colors.map((color, i) => (
-        <SmallPanelView key={i} index={i} color={color} />
-      ))}
-      <Time onChange={handleChange} duration={props.duration} />
+      {props.index}
+      <div className="small-panels">
+        {props.colors.map((color, i) => (
+          <SmallPanelView key={i} index={i} color={color} />
+        ))}
+        <Time onChange={handleChange} duration={props.duration} />
+      </div>
     </div>
   );
 }

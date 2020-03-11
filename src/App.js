@@ -2,10 +2,21 @@ import React from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
-import FrameView from "./frame-components/FrameView";
+import Frames from "./frame-components/Frames";
 import { Button } from "@material-ui/core";
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+// import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  }
+}));
 
 export default function App() {
+  const classes = useStyles();
   const defaultFrame = {
     colors: {
       0: "#808080",
@@ -29,50 +40,70 @@ export default function App() {
 
   function selectPanel(newPanelIndex) {
     setPanelIndex(newPanelIndex);
-    console.log("Panel: " + newPanelIndex);
+    console.log("Panel index: " + newPanelIndex);
   }
 
   function selectFrame(newFrameIndex) {
-    if (newFrameIndex < frameCount) {
+    if (0 <= newFrameIndex && newFrameIndex < frameCount) {
       setFrameIndex(newFrameIndex);
-      console.log("Frame: " + newFrameIndex);
-      setPanelIndex(0);
+      console.log("Frame index: " + newFrameIndex);
     } else {
       console.log("Out of bounds frame index.");
     }
   }
 
+  // function addFrame() {
+  //   var oldSize = frameCount;
+  //   setFrames({
+  //     ...frames,
+  //     [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
+  //   });
+  //   setFrameCount(oldSize + 1);
+  //   console.log("Frame added. Frames size: " + frameCount);
+  //   setFrameIndex(oldSize);
+  //   selectPanel(0);
+  // }
+
   function addFrame() {
     var oldSize = frameCount;
-    setFrames({
-      ...frames,
-      [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
-    });
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      ctr++;
+      if (i === selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(defaultFrame));
+        ctr++;
+      }
+    }
+    setFrames(newFrames);
     setFrameCount(oldSize + 1);
-    console.log("Frame added. Frames size: " + frameCount);
-    setFrameIndex(oldSize);
-    selectPanel(0);
+    setFrameIndex(selectedFrameIndex + 1);
+    console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
   function deleteFrame() {
     var oldSize = frameCount;
 
-    if (oldSize <= 1) return;
+    if (oldSize <= 1) {
+      console.log("Cannot delete frame when frame count == 1");
+      return;
+    }
 
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
       if (i !== selectedFrameIndex) {
-        console.log("kept frame: " + i);
-        newFrames[i] = frames[ctr];
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
         ctr++;
       }
     }
     setFrames(newFrames);
     setFrameCount(oldSize - 1);
+    if (selectedFrameIndex === oldSize - 1) {
+      selectFrame(selectedFrameIndex - 1);
+    }
     console.log("Frame deleted. Frames size: " + frameCount);
-    selectFrame(oldSize - 2);
-    selectPanel(0);
   }
 
   function duplicateFrame() {
@@ -80,22 +111,21 @@ export default function App() {
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      newFrames[ctr] = frames[i];
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
       ctr++;
       if (i === selectedFrameIndex) {
-        newFrames[ctr] = frames[i];
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
         ctr++;
       }
     }
     setFrames(newFrames);
     setFrameCount(oldSize + 1);
-    setFrameIndex(oldSize);
-    selectPanel(0);
+    setFrameIndex(selectedFrameIndex + 1);
     console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
   function updateColor(newColor) {
-    var updatedFrame = Object.assign({}, frames[selectedFrameIndex]);
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
     updatedFrame.colors[selectedPanelIndex] = newColor;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log(
@@ -108,7 +138,7 @@ export default function App() {
   }
 
   function updateDuration(newDuration, frameIndex) {
-    var updatedFrame = Object.assign({}, frames[frameIndex]);
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
     updatedFrame.duration = newDuration;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log("Frame " + selectedFrameIndex + " time changed");
@@ -126,22 +156,43 @@ export default function App() {
         selectedColor={frames[selectedFrameIndex].colors[selectedPanelIndex]}
         updateColor={updateColor}
       />
-      <Button color="inherit" onClick={addFrame}>
-        Add Frame
-      </Button>
-      <Button color="inherit" onClick={deleteFrame}>
-        Delete Frame
-      </Button>
-      <Button color="inherit" onClick={duplicateFrame}>
-        Duplicate Frame
-      </Button>
-      <FrameView
-        frames={Object.values(frames)}
-        addFrame={addFrame}
-        selectedFrameIndex={selectedFrameIndex}
-        selectFrame={selectFrame}
-        updateDuration={updateDuration}
-      />
+      <div id="frame-view">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          // startIcon={<AddBoxIcon />}
+          onClick={addFrame}
+        >
+          Add Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          // startIcon={<AddToPhotosIcon />}
+          onClick={duplicateFrame}
+        >
+          Duplicate Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          // startIcon={<DeleteIcon />}
+          onClick={deleteFrame}
+        >
+          Delete Frame
+        </Button>
+        <br />
+        <Frames
+          frames={Object.values(frames)}
+          addFrame={addFrame}
+          selectedFrameIndex={selectedFrameIndex}
+          selectFrame={selectFrame}
+          updateDuration={updateDuration}
+        />
+      </div>
     </div>
   );
 }
