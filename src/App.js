@@ -110,7 +110,7 @@ export default function App() {
     }
     setFrames(newFrames);
     setFrameCount(oldSize - 1);
-    if (selectedFrameIndex === frameCount) {
+    if (selectedFrameIndex === (oldSize - 1)) {
       selectFrame(selectedFrameIndex - 1);
     }
     console.log("Frame deleted. Frames size: " + frameCount);

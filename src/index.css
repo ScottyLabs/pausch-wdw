@@ -64,9 +64,18 @@ body {
 }
 
 .frame {
+  position: relative;
   margin: 10px auto 0 auto;
-  text-align: right;
+  padding: 5px 5px 0px 5px;
+  text-align: left;
+  height: 85px;
   border: 3px solid transparent;
+}
+
+.small-panels {
+  position: absolute;
+  top: 10px;
+  right: 0;
 }
 
 .small-panel {
