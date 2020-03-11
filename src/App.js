@@ -104,7 +104,7 @@ export default function App() {
       newFrames[ctr] = frames[i];
       ctr++;
       if (i === selectedFrameIndex) {
-        newFrames[ctr] = frames[i];
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
         ctr++;
       }
     }
