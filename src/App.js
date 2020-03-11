@@ -40,35 +40,55 @@ export default function App() {
 
   function selectPanel(newPanelIndex) {
     setPanelIndex(newPanelIndex);
-    console.log("Panel: " + newPanelIndex);
+    console.log("Panel index: " + newPanelIndex);
   }
 
   function selectFrame(newFrameIndex) {
-    if (newFrameIndex < frameCount) {
+    if (0 <= newFrameIndex && newFrameIndex < frameCount) {
       setFrameIndex(newFrameIndex);
-      console.log("Frame: " + newFrameIndex);
-      setPanelIndex(0);
+      console.log("Frame index: " + newFrameIndex);
     } else {
       console.log("Out of bounds frame index.");
     }
   }
 
+  // function addFrame() {
+  //   var oldSize = frameCount;
+  //   setFrames({
+  //     ...frames,
+  //     [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
+  //   });
+  //   setFrameCount(oldSize + 1);
+  //   console.log("Frame added. Frames size: " + frameCount);
+  //   setFrameIndex(oldSize);
+  //   selectPanel(0);
+  // }
+
   function addFrame() {
     var oldSize = frameCount;
-    setFrames({
-      ...frames,
-      [oldSize]: JSON.parse(JSON.stringify(defaultFrame))
-    });
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      ctr++;
+      if (i === selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(defaultFrame));
+        ctr++;
+      }
+    }
+    setFrames(newFrames);
     setFrameCount(oldSize + 1);
-    console.log("Frame added. Frames size: " + frameCount);
-    setFrameIndex(oldSize);
-    selectPanel(0);
+    setFrameIndex(selectedFrameIndex + 1);
+    console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
   function deleteFrame() {
     var oldSize = frameCount;
 
-    if (oldSize <= 1) return;
+    if (oldSize <= 1) {
+      console.log("Cannot delete frame when frame count == 1")
+      return;
+    }
     /*const newFrames = Object.keys(frames).filter(
       frame => frame.id !== selectedFrameIndex
     );
@@ -84,16 +104,16 @@ export default function App() {
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
       if (i !== selectedFrameIndex) {
-        console.log("kept frame: " + i);
-        newFrames[i] = frames[ctr];
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
         ctr++;
       }
     }
     setFrames(newFrames);
     setFrameCount(oldSize - 1);
+    if (selectedFrameIndex === frameCount) {
+      selectFrame(selectedFrameIndex - 1);
+    }
     console.log("Frame deleted. Frames size: " + frameCount);
-    selectFrame(oldSize - 2);
-    selectPanel(0);
   }
 
   function duplicateFrame() {
@@ -101,7 +121,7 @@ export default function App() {
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      newFrames[ctr] = frames[i];
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
       ctr++;
       if (i === selectedFrameIndex) {
         newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
@@ -110,13 +130,12 @@ export default function App() {
     }
     setFrames(newFrames);
     setFrameCount(oldSize + 1);
-    setFrameIndex(oldSize);
-    selectPanel(0);
+    setFrameIndex(selectedFrameIndex + 1);
     console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
   function updateColor(newColor) {
-    var updatedFrame = Object.assign({}, frames[selectedFrameIndex]);
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
     updatedFrame.colors[selectedPanelIndex] = newColor;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log(
@@ -129,7 +148,7 @@ export default function App() {
   }
 
   function updateDuration(newDuration, frameIndex) {
-    var updatedFrame = Object.assign({}, frames[frameIndex]);
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
     updatedFrame.duration = newDuration;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log("Frame " + selectedFrameIndex + " time changed");
