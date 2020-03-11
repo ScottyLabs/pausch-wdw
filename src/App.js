@@ -2,10 +2,21 @@ import React from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
-import FrameView from "./frame-components/FrameView";
+import Frames from "./frame-components/Frames";
 import { Button } from "@material-ui/core";
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+// import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 export default function App() {
+  const classes = useStyles();
   const defaultFrame = {
     colors: {
       0: "#808080",
@@ -136,22 +147,43 @@ export default function App() {
         selectedColor={frames[selectedFrameIndex].colors[selectedPanelIndex]}
         updateColor={updateColor}
       />
-      <Button color="inherit" onClick={addFrame}>
-        Add Frame
-      </Button>
-      <Button color="inherit" onClick={deleteFrame}>
-        Delete Frame
-      </Button>
-      <Button color="inherit" onClick={duplicateFrame}>
-        Duplicate Frame
-      </Button>
-      <FrameView
-        frames={Object.values(frames)}
-        addFrame={addFrame}
-        selectedFrameIndex={selectedFrameIndex}
-        selectFrame={selectFrame}
-        updateDuration={updateDuration}
-      />
+      <div id="frame-view">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          // startIcon={<AddBoxIcon />}
+          onClick={addFrame}
+        >
+          Add Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          // startIcon={<AddToPhotosIcon />}
+          onClick={duplicateFrame}
+        >
+          Duplicate Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          // startIcon={<DeleteIcon />}
+          onClick={deleteFrame}
+        >
+          Delete Frame
+        </Button>
+        <br />
+        <Frames
+          frames={Object.values(frames)}
+          addFrame={addFrame}
+          selectedFrameIndex={selectedFrameIndex}
+          selectFrame={selectFrame}
+          updateDuration={updateDuration}
+        />
+      </div>
     </div>
   );
 }

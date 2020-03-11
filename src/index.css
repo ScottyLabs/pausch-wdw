@@ -40,7 +40,7 @@ body {
   height: 275px;
   border: 3px solid transparent;
   overflow: hidden;
-  background-color: #A0A0A0;
+  background-color: #a0a0a0;
 }
 
 .panel img {
@@ -50,8 +50,15 @@ body {
 }
 
 #frame-view {
-  width: 75%;
-  height: 100px;
+  padding: 10px;
+  text-align: center;
+  border: 3px solid #808080;
+  margin: 10px auto;
+  /* display: inline-block; */
+}
+
+#frames {
+  height: 150px;
   overflow-y: scroll;
   padding: 10px;
 }
@@ -68,7 +75,7 @@ body {
   width: 20px;
   height: 55px;
   overflow: hidden;
-  background-color: #A0A0A0;
+  background-color: #a0a0a0;
 }
 
 .small-panel img {
