@@ -58,17 +58,7 @@ export default function App() {
     var oldSize = frameCount;
 
     if (oldSize <= 1) return;
-    /*const newFrames = Object.keys(frames).filter(
-      frame => frame.id !== selectedFrameIndex
-    );
 
-    setFrames({ newFrames });
-    const newFrames = Object.keys(frames).reduce((object, key) => {
-      if (key !== selectedFrameIndex) {
-        object[key] = frames[key];
-      }
-      return object;
-    }, {});*/
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
