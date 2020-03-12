@@ -4,15 +4,22 @@ import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 import Frames from "./frame-components/Frames";
 import { Button } from "@material-ui/core";
+<<<<<<< HEAD
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from '@material-ui/core/styles';
+=======
+// import AddBoxIcon from '@material-ui/icons/AddBox';
+// import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+// import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from "@material-ui/core/styles";
+>>>>>>> 2833109dcf7edbe10e1eb9d0de398eb3f67a7093
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1),
-  },
+    margin: theme.spacing(1)
+  }
 }));
 
 export default function App() {
@@ -86,20 +93,10 @@ export default function App() {
     var oldSize = frameCount;
 
     if (oldSize <= 1) {
-      console.log("Cannot delete frame when frame count == 1")
+      console.log("Cannot delete frame when frame count == 1");
       return;
     }
-    /*const newFrames = Object.keys(frames).filter(
-      frame => frame.id !== selectedFrameIndex
-    );
 
-    setFrames({ newFrames });
-    const newFrames = Object.keys(frames).reduce((object, key) => {
-      if (key !== selectedFrameIndex) {
-        object[key] = frames[key];
-      }
-      return object;
-    }, {});*/
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
@@ -110,7 +107,7 @@ export default function App() {
     }
     setFrames(newFrames);
     setFrameCount(oldSize - 1);
-    if (selectedFrameIndex === (oldSize - 1)) {
+    if (selectedFrameIndex === oldSize - 1) {
       selectFrame(selectedFrameIndex - 1);
     }
     console.log("Frame deleted. Frames size: " + frameCount);
