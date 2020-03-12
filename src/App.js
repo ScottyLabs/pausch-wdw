@@ -4,17 +4,10 @@ import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 import Frames from "./frame-components/Frames";
 import { Button } from "@material-ui/core";
-<<<<<<< HEAD
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from '@material-ui/core/styles';
-=======
-// import AddBoxIcon from '@material-ui/icons/AddBox';
-// import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
-// import DeleteIcon from "@material-ui/icons/Delete";
-import { makeStyles } from "@material-ui/core/styles";
->>>>>>> 2833109dcf7edbe10e1eb9d0de398eb3f67a7093
 
 const useStyles = makeStyles(theme => ({
   button: {
