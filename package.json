@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.5.1",
     "react": "^16.10.2",
     "react-color": "^2.17.3",
     "react-dom": "^16.10.2",
-    "react-horizontal-scroll-container": "^1.0.1",
-    "react-horizontal-scrolling-menu": "^0.7.6",
-    "react-scripts": "3.2.0",
-    "use-smooth-scroll": "^1.1.1"
+    "react-horizontal-scrolling-menu": "^0.7.6"
   },
   "scripts": {
     "start": "react-scripts start",
