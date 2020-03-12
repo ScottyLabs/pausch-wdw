@@ -23,7 +23,7 @@ export default function Panel(props) {
         props.selectPanel(props.index)
       }}
     >
-      <img src={img} draggable = "false" alt="Pausch Design" />
+      <img draggable="false" src={img} alt="Pausch Design" />
     </div>
   );
 }

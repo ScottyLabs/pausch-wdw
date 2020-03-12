@@ -21,8 +21,8 @@ export default function Panels(props) {
   const alignCenter = true;
   const clickWhenDrag = false;
   const dragging = true;
-  const wheel = false;
-  //const wrapperStyle: CSSProperties= {overflow: 'scroll', userSelect: 'none'};
+  const wheel = true;
+  //const wrapperStyle = {overflow: 'scroll', userSelect: 'none'};
 
   const menuItems = props.colors.map((color, i) => (
     <Panel key={i} index={i} 
@@ -41,6 +41,7 @@ export default function Panels(props) {
           clickWhenDrag = {clickWhenDrag}
           dragging={dragging}
           wheel = {wheel}
+          //wrapperStyle = {wrapperStyle}
           />
     </div>
   );
