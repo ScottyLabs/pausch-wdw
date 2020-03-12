@@ -1,8 +1,7 @@
-import React from 'react';
-import img from './assets/pausch-design.jpg';
+import React from "react";
+import img from "./assets/pausch-design.jpg";
 
 export default function Panel(props) {
-
   /*
   props = {
     index: 0,
@@ -13,14 +12,14 @@ export default function Panel(props) {
   */
 
   return (
-    <div 
-      className='panel'
+    <div
+      className="panel"
       style={{
         backgroundColor: props.color,
-        borderColor: props.isSelected ? '#3f51b5' : '#808080',
+        borderColor: props.isSelected ? "#3f51b5" : "#808080"
       }}
-      onClick={function() { 
-        props.selectPanel(props.index)
+      onClick={function() {
+        props.selectPanel(props.index);
       }}
     >
       <img draggable="false" src={img} alt="Pausch Design" />

@@ -2,8 +2,8 @@ import React from 'react';
 import Panel from './Panel';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 
-export default function Panels(props) {
 
+export default function Panels(props) {
   /*
   props = {
     colors: ['red', 'blue', ....],
@@ -24,9 +24,12 @@ export default function Panels(props) {
   const wheel = true;
 
   const menuItems = props.colors.map((color, i) => (
-    <Panel key={i} index={i} 
-      color={color} isSelected={props.selectedIndex === i}
-      selectPanel={props.selectPanel} />
+    <Panel key={i}
+      index={i} 
+      color={color} 
+      isSelected={props.selectedIndex === i}
+      selectPanel={props.selectPanel} 
+    />
   ))
 
 
