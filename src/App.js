@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
@@ -18,16 +18,16 @@ export default function App() {
     8: "#808080"
   });
 
-  //store current color as global var
-  let currColor = "#808080";
+  // keep track of last, most current color selected
+  const [currColor, setCurrColor] = React.useState("#808080");
 
   function selectPanel(newIndex) {
     setIndex(newIndex);
-    updateColor(App.currColor);
+    setColors({ ...colors, [newIndex]: currColor });
   }
 
   function updateColor(newColor) {
-    App.currColor = newColor;
+    setCurrColor(newColor);
     setColors({ ...colors, [selectedIndex]: newColor });
   }
 
@@ -39,10 +39,7 @@ export default function App() {
         selectedIndex={selectedIndex}
         selectPanel={selectPanel}
       />
-      <ColorSelector
-        selectedColor={colors[selectedIndex]}
-        updateColor={updateColor}
-      />
+      <ColorSelector selectedColor={currColor} updateColor={updateColor} />
     </div>
   );
 }

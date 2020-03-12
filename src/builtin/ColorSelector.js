@@ -23,24 +23,24 @@ class ColorSelector extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.state = {
-    //   panelIndex: 0,
-    //   selectedColor: "#808080"
-    // };
-    // this.state = { value: 0 };
+    this.state = {
+      panelIndex: 0,
+      selectedColor: "#808080"
+    };
+    this.state = { value: 0 };
 
-    //the binding is necessary to make 'this' work in the callback
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleChangeIndex = this.handleChangeIndex.bind(this);
+    // the binding is necessary to make 'this' work in the callback
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeIndex = this.handleChangeIndex.bind(this);
   }
 
-  // handleChange(_, value) {
-  //   this.setState({ value });
-  // }
+  handleChange(_, value) {
+    this.setState({ value });
+  }
 
-  // handleChangeIndex(index) {
-  //   this.setState({ value: index });
-  // }
+  handleChangeIndex(index) {
+    this.setState({ value: index });
+  }
 
   render() {
     const { classes, selectedColor, updateColor } = this.props;
