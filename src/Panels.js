@@ -1,8 +1,7 @@
-import React from 'react';
-import Panel from './Panel';
+import React from "react";
+import Panel from "./Panel";
 
 export default function Panels(props) {
-
   /*
   props = {
     colors: ['red', 'blue', ....],
@@ -12,11 +11,15 @@ export default function Panels(props) {
   */
 
   return (
-    <div id='panels'>
+    <div id="panels">
       {props.colors.map((color, i) => (
-        <Panel key={i} index={i} 
-          color={color} isSelected={props.selectedIndex === i}
-          selectPanel={props.selectPanel} />
+        <Panel
+          key={i}
+          index={i}
+          color={color}
+          isSelected={props.selectedIndex === i}
+          selectPanel={props.selectPanel}
+        />
       ))}
     </div>
   );
