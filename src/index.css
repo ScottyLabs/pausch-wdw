@@ -28,11 +28,6 @@ body {
   justify-content: space-between;
 }
 
-#panels {
-  margin: 35px auto 0 auto;
-  text-align: center;
-}
-
 .panel {
   display: inline-block;
   margin: 0 2px;
@@ -96,4 +91,15 @@ body {
 .time-input {
   display: inline-block;
   margin: 0 10px;
+  
+#panels {
+  margin: 35px 150px 0px;
+  text-align: center;
+  display: flex;
+  padding: 20px;
+}
+
+.scroll-menu-arrow {
+  padding: 0px 20px;
+  cursor: pointer;
 }
