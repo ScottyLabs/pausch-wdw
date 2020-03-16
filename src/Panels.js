@@ -4,13 +4,6 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 
 
 export default function Panels(props) {
-  /*
-  props = {
-    colors: ['red', 'blue', ....],
-    selectedIndex: 2,
-    selectPanel: number -> ()
-  }
-  */
  const Arrow = ({ text, className }) => {
     return <div className={className}>{text}</div>;
   };
@@ -46,12 +39,3 @@ export default function Panels(props) {
           />
     </div>
   );
-
-  /*
-  <div id='panels>
-    <Panel color='red' isSelected={false} />,
-    <Panel color='blue' isSelected={false} />,
-    <Panel color='green' isSelected={true} />,
-  </div>
-  */
-}

@@ -44,6 +44,54 @@ body {
   height: 300px;
 }
 
+#frame-view {
+  padding: 10px;
+  text-align: center;
+  border: 3px solid #cccccc;
+  margin: 30px;
+  /* display: inline-block; */
+}
+
+#frames {
+  height: 150px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.frame {
+  position: relative;
+  margin: 10px auto 0 auto;
+  padding: 5px 5px 0px 5px;
+  text-align: left;
+  height: 85px;
+  border: 3px solid transparent;
+}
+
+.small-panels {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+.small-panel {
+  display: inline-block;
+  margin: 0 1px;
+  width: 20px;
+  height: 55px;
+  overflow: hidden;
+  background-color: #a0a0a0;
+}
+
+.small-panel img {
+  opacity: 0.3;
+  width: 40px;
+  height: 60px;
+}
+
+.time-input {
+  display: inline-block;
+  margin: 0 10px;
+  
 #panels {
   margin: 35px 150px 0px;
   text-align: center;

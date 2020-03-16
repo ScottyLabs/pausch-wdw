@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
+import Frames from "./frame-components/Frames";
+import { Button } from "@material-ui/core";
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  }
+}));
 
 export default function App() {
-  //initial selected panel is the first one
-  const [selectedIndex, setIndex] = React.useState(0);
-  const [colors, setColors] = React.useState({
+  const classes = useStyles();
+  const defaultFrame = {
+    colors: {
     0: "#808080",
     1: "#808080",
     2: "#808080",
@@ -59,15 +71,112 @@ export default function App() {
     49: "#808080",
     50: "#808080",
     51: "#808080",
+    },
+    duration: 1
+  };
+  const [selectedPanelIndex, setPanelIndex] = React.useState(0);
+  const [selectedFrameIndex, setFrameIndex] = React.useState(0);
+  const [frames, setFrames] = React.useState({
+    0: JSON.parse(JSON.stringify(defaultFrame)) // clones defaultFrame object
   });
+  const [frameCount, setFrameCount] = React.useState(1);
 
+  function selectPanel(newPanelIndex) {
+    setPanelIndex(newPanelIndex);
+    updateColor(currColor);
+    console.log("Panel index: " + newPanelIndex);
+  }
+
+  function selectFrame(newFrameIndex) {
+    if (0 <= newFrameIndex && newFrameIndex < frameCount) {
+      setFrameIndex(newFrameIndex);
+      console.log("Frame index: " + newFrameIndex);
+    } else {
+      console.log("Out of bounds frame index.");
+    }
+  }
+
+  function addFrame() {
+    var oldSize = frameCount;
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      ctr++;
+      if (i === selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(defaultFrame));
+        ctr++;
+      }
+    }
+    setFrames(newFrames);
+    setFrameCount(oldSize + 1);
+    setFrameIndex(selectedFrameIndex + 1);
+    console.log("Frame duplicated. Frames size: " + frameCount);
+  }
+
+  function deleteFrame() {
+    var oldSize = frameCount;
+
+    if (oldSize <= 1) {
+      console.log("Cannot delete frame when frame count == 1");
+      return;
+    }
+
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      if (i !== selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+        ctr++;
+      }
+    }
+    setFrames(newFrames);
+    setFrameCount(oldSize - 1);
+    if (selectedFrameIndex === oldSize - 1) {
+      selectFrame(selectedFrameIndex - 1);
+    }
+    console.log("Frame deleted. Frames size: " + frameCount);
+  }
+
+  function duplicateFrame() {
+    var oldSize = frameCount;
+    const newFrames = {};
+    let ctr = 0;
+    for (let i = 0; i < oldSize; i++) {
+      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      ctr++;
+      if (i === selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+        ctr++;
+      }
+    }
+    setFrames(newFrames);
+    setFrameCount(oldSize + 1);
+    setFrameIndex(selectedFrameIndex + 1);
+    console.log("Frame duplicated. Frames size: " + frameCount);
+  }
+
+  function updateColor(newColor) {
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
+    updatedFrame.colors[selectedPanelIndex] = newColor;
+    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
+    console.log(
+      "Frame " +
+        selectedFrameIndex +
+        ", Panel " +
+        selectedPanelIndex +
+        " color changed"
+    );
+  }
+
+  function updateDuration(newDuration, frameIndex) {
+    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
+    updatedFrame.duration = newDuration;
+    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
+    console.log("Frame " + selectedFrameIndex + " time changed");
+    
   // keep track of last, most current color selected
   const [currColor, setCurrColor] = React.useState("#808080");
-
-  function selectPanel(newIndex) {
-    setIndex(newIndex);
-    setColors({ ...colors, [newIndex]: currColor });
-  }
 
   function updateColor(newColor) {
     setCurrColor(newColor);
@@ -76,13 +185,53 @@ export default function App() {
 
   return (
     <div>
-      <Header name="Srinu Lade" colors={colors} />
+      <Header name="Srinu Lade" frames={frames} />
       <Panels
-        colors={Object.values(colors)}
-        selectedIndex={selectedIndex}
+        colors={Object.values(frames[selectedFrameIndex].colors)}
+        selectedPanelIndex={selectedPanelIndex}
         selectPanel={selectPanel}
       />
-      <ColorSelector selectedColor={currColor} updateColor={updateColor} />
+      <ColorSelector
+        selectedColor={currColor}
+        updateColor={updateColor}
+      />
+      <div id="frame-view">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<AddBoxIcon />}
+          onClick={addFrame}
+        >
+          Add Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<AddToPhotosIcon />}
+          onClick={duplicateFrame}
+        >
+          Duplicate Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<DeleteIcon />}
+          onClick={deleteFrame}
+        >
+          Delete Frame
+        </Button>
+        <br />
+        <Frames
+          frames={Object.values(frames)}
+          addFrame={addFrame}
+          selectedFrameIndex={selectedFrameIndex}
+          selectFrame={selectFrame}
+          updateDuration={updateDuration}
+        />
+      </div>
     </div>
   );
 }
