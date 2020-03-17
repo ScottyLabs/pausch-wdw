@@ -1,10 +1,9 @@
-import React from 'react';
-import Panel from './Panel';
-import ScrollMenu from 'react-horizontal-scrolling-menu';
-
+import React from "react";
+import Panel from "./Panel";
+import ScrollMenu from "react-horizontal-scrolling-menu";
 
 export default function Panels(props) {
- const Arrow = ({ text, className }) => {
+  const Arrow = ({ text, className }) => {
     return <div className={className}>{text}</div>;
   };
 
@@ -17,25 +16,26 @@ export default function Panels(props) {
   const wheel = true;
 
   const menuItems = props.colors.map((color, i) => (
-    <Panel key={i}
-      index={i} 
-      color={color} 
+    <Panel
+      key={i}
+      index={i}
+      color={color}
       isSelected={props.selectedIndex === i}
-      selectPanel={props.selectPanel} 
+      selectPanel={props.selectPanel}
     />
-  ))
-
+  ));
 
   return (
-    <div id='App'> 
-        <ScrollMenu
-          alignCenter={alignCenter}
-          arrowLeft={ArrowLeft}
-          arrowRight={ArrowRight}
-          data= {menuItems}
-          clickWhenDrag = {clickWhenDrag}
-          dragging={dragging}
-          wheel = {wheel}
-          />
+    <div id="App">
+      <ScrollMenu
+        alignCenter={alignCenter}
+        arrowLeft={ArrowLeft}
+        arrowRight={ArrowRight}
+        data={menuItems}
+        clickWhenDrag={clickWhenDrag}
+        dragging={dragging}
+        wheel={wheel}
+      />
     </div>
   );
+}

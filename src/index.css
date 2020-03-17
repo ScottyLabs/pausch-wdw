@@ -75,9 +75,9 @@ body {
 
 .small-panel {
   display: inline-block;
-  margin: 0 1px;
-  width: 20px;
-  height: 55px;
+  margin: 0 0px;
+  width: 19px;
+  height: 50px;
   overflow: hidden;
   background-color: #a0a0a0;
 }
@@ -91,7 +91,8 @@ body {
 .time-input {
   display: inline-block;
   margin: 0 10px;
-  
+}
+
 #panels {
   margin: 35px 150px 0px;
   text-align: center;
