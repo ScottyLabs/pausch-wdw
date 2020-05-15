@@ -30,18 +30,18 @@ body {
 
 .panel {
   display: inline-block;
-  margin: 0 2px;
+  margin: 0 1px;
   width: 100px;
-  height: 275px;
-  border: 3px solid transparent;
+  height: 80px;
+  border: 1px solid transparent;
   overflow: hidden;
   background-color: #a0a0a0;
 }
 
 .panel img {
   opacity: 0.3;
-  width: 200px;
-  height: 300px;
+  width: 100px;
+  height: 120px;
 }
 
 #frame-view {
@@ -84,7 +84,7 @@ body {
 
 .small-panel img {
   opacity: 0.3;
-  width: 40px;
+  width: 50px;
   height: 60px;
 }
 
@@ -94,10 +94,10 @@ body {
 }
 
 #panels {
-  margin: 35px 150px 0px;
+  margin: 10px 50px;
   text-align: center;
   display: flex;
-  padding: 20px;
+  padding: 10px;
 }
 
 .scroll-menu-arrow {
