@@ -84,12 +84,11 @@ export default function App() {
 
   function updateColor(newColor) {
     setCurrColor(newColor);
-    updatePanelColor(currColor);
   }
 
   function selectPanel(newPanelIndex) {
     setPanelIndex(newPanelIndex);
-    updatePanelColor(currColor);
+    updatePanelColor(currColor, newPanelIndex);
     console.log("Panel index: " + newPanelIndex);
   }
 
@@ -162,15 +161,15 @@ export default function App() {
     console.log("Frame duplicated. Frames size: " + frameCount);
   }
 
-  function updatePanelColor(newColor) {
+  function updatePanelColor(newColor, panelIndex) {
     var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
-    updatedFrame.colors[selectedPanelIndex] = newColor;
+    updatedFrame.colors[panelIndex] = newColor;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log(
       "Frame " +
         selectedFrameIndex +
         ", Panel " +
-        selectedPanelIndex +
+        panelIndex +
         " color changed"
     );
   }
