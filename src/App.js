@@ -7,8 +7,8 @@ import { Button } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import DeleteIcon from "@material-ui/icons/Delete";
-import PauseIcon from '@material-ui/icons/PauseOutlined';
-import PlayIcon from '@material-ui/icons/PlayArrowOutlined';
+import PauseIcon from "@material-ui/icons/PauseOutlined";
+import PlayIcon from "@material-ui/icons/PlayArrowOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -169,11 +169,7 @@ export default function App() {
     updatedFrame.colors[panelIndex] = newColor;
     setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
     console.log(
-      "Frame " +
-        selectedFrameIndex +
-        ", Panel " +
-        panelIndex +
-        " color changed"
+      "Frame " + selectedFrameIndex + ", Panel " + panelIndex + " color changed"
     );
   }
 
@@ -186,8 +182,8 @@ export default function App() {
 
   function playPreview() {
     setPlaying(true);
-    console.log(frames[selectedFrameIndex].duration);
-    setTimeout(previewNextFrame, (frames[selectedFrameIndex].duration)*1000);
+    console.log("Play: " + frames[selectedFrameIndex].duration);
+    setTimeout(previewNextFrame, frames[selectedFrameIndex].duration * 1000);
   }
 
   function previewNextFrame() {
