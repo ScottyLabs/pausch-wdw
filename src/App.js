@@ -192,7 +192,7 @@ export default function App() {
 
   function previewNextFrame() {
     if (playing) {
-      if (selectedFrameIndex == frameCount) {
+      if (selectedFrameIndex === frameCount - 1) {
         selectFrame(0);
       } else {
         selectFrame(selectedFrameIndex + 1);
