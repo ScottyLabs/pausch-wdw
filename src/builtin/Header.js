@@ -1,13 +1,12 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  flex: {flex: 1},
+  flex: { flex: 1 }
 });
 
-const Header = (props) => {
-
+const Header = props => {
   /*
   props = {
     name: 'Srinu Lade',
@@ -18,32 +17,37 @@ const Header = (props) => {
     },
   }
   */
-
+  const [status, setStatus] = React.useState("Nothing Sent Yet");
   const classes = useStyles();
 
   const sendTheme = async () => {
-    const res = await fetch('http://pbridge.adm.cs.cmu.edu:5000/theme', {
-      method: 'POST',
+    setStatus("Pending");
+    const res = await fetch("http://pbridge.adm.cs.cmu.edu:5000/theme", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ name: props.name, panels: props.colors })
     });
 
     const ans = await res.json();
+    setStatus(ans);
     console.log(ans);
   };
 
   return (
-    <AppBar position="static" style={{marginBottom : 30}}>
+    <AppBar position="static" style={{ marginBottom: 30 }}>
       <Toolbar>
         <Typography variant="h6" color="inherit" className={classes.flex}>
-            Bridge UI Editor - {props.name}
+          Bridge UI Editor - {props.name}
         </Typography>
-        <Button color="inherit" onClick={sendTheme}>Send Theme</Button>
+        <Button color="inherit">Status: {status}</Button>
+        <Button color="inherit" onClick={sendTheme}>
+          Send Theme
+        </Button>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Header;

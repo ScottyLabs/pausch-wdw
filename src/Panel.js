@@ -2,15 +2,6 @@ import React from "react";
 import img from "./assets/pausch-design.jpg";
 
 export default function Panel(props) {
-  /*
-  props = {
-    index: 0,
-    color: 'red',
-    isSelected: false,
-    selectPanel: number -> ()
-  }
-  */
-
   return (
     <div
       className="panel"
@@ -22,7 +13,7 @@ export default function Panel(props) {
         props.selectPanel(props.index)
       }}
     >
-      <img draggable="false" src={img} alt="Pausch Design" />
+      <img src={img} alt="Pausch Design" />
     </div>
   );
 }
