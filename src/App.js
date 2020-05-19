@@ -7,6 +7,8 @@ import { Button } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import DeleteIcon from "@material-ui/icons/Delete";
+import PauseIcon from '@material-ui/icons/PauseOutlined';
+import PlayIcon from '@material-ui/icons/PlayArrowOutlined';
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +83,7 @@ export default function App() {
   });
   const [frameCount, setFrameCount] = React.useState(1);
   const [currColor, setCurrColor] = React.useState("#808080");
+  const [playing, setPlaying] = React.useState(false);
 
   function updateColor(newColor) {
     setCurrColor(newColor);
@@ -181,6 +184,27 @@ export default function App() {
     console.log("Frame " + selectedFrameIndex + " time changed");
   }
 
+  function playPreview() {
+    setPlaying(true);
+    console.log(frames[selectedFrameIndex].duration);
+    setTimeout(previewNextFrame, (frames[selectedFrameIndex].duration)*1000);
+  }
+
+  function previewNextFrame() {
+    if (playing) {
+      if (selectedFrameIndex === frameCount - 1) {
+        selectFrame(0);
+      } else {
+        selectFrame(selectedFrameIndex + 1);
+      }
+      playPreview();
+    }
+  }
+
+  function pausePreview() {
+    setPlaying(false);
+  }
+
   return (
     <div>
       <Header name="Srinu Lade" frames={frames} />
@@ -217,6 +241,26 @@ export default function App() {
           onClick={deleteFrame}
         >
           Delete Frame
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<PlayIcon />}
+          onClick={playPreview}
+          disabled={playing}
+        >
+          Play Preview
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<PauseIcon />}
+          onClick={pausePreview}
+          disabled={!playing}
+        >
+          Pause Preview
         </Button>
         <br />
         <Frames
