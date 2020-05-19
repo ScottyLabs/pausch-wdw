@@ -17,12 +17,11 @@ const Header = props => {
     },
   }
   */
-
+  const [status, setStatus] = React.useState("Nothing Sent Yet");
   const classes = useStyles();
-  ans = "Nothing Sent Yet";
 
   const sendTheme = async () => {
-    ans = "Pending";
+    setStatus("Pending");
     const res = await fetch("http://pbridge.adm.cs.cmu.edu:5000/theme", {
       method: "POST",
       headers: {
@@ -31,7 +30,8 @@ const Header = props => {
       body: JSON.stringify({ name: props.name, panels: props.colors })
     });
 
-    ans = await res.json();
+    const ans = await res.json();
+    setStatus(ans);
     console.log(ans);
   };
 
@@ -41,7 +41,7 @@ const Header = props => {
         <Typography variant="h6" color="inherit" className={classes.flex}>
           Bridge UI Editor - {props.name}
         </Typography>
-        <Button color="inherit">Status: {ans}</Button>
+        <Button color="inherit">Status: {status}</Button>
         <Button color="inherit" onClick={sendTheme}>
           Send Theme
         </Button>
