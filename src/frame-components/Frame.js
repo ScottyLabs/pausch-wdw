@@ -22,7 +22,7 @@ export default function Frame(props) {
         {props.colors.map((color, i) => (
           <SmallPanelView key={i} index={i} color={color} />
         ))}
-        <Time disabled={!(props.isSelected)} onChange={handleChange} duration={props.duration} />
+        <Time onChange={handleChange} duration={props.duration} />
       </div>
     </div>
   );

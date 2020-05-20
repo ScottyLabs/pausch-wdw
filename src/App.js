@@ -3,127 +3,151 @@ import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 import Frames from "./frame-components/Frames";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PauseIcon from "@material-ui/icons/PauseOutlined";
 import PlayIcon from "@material-ui/icons/PlayArrowOutlined";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: "10px",
+  },
+});
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.defaultFrame = {
+      colors: {
+        0: "#808080",
+        1: "#808080",
+        2: "#808080",
+        3: "#808080",
+        4: "#808080",
+        5: "#808080",
+        6: "#808080",
+        7: "#808080",
+        8: "#808080",
+        9: "#808080",
+        10: "#808080",
+        11: "#808080",
+        12: "#808080",
+        13: "#808080",
+        14: "#808080",
+        15: "#808080",
+        16: "#808080",
+        17: "#808080",
+        18: "#808080",
+        19: "#808080",
+        20: "#808080",
+        21: "#808080",
+        22: "#808080",
+        23: "#808080",
+        24: "#808080",
+        25: "#808080",
+        26: "#808080",
+        27: "#808080",
+        28: "#808080",
+        29: "#808080",
+        30: "#808080",
+        31: "#808080",
+        32: "#808080",
+        33: "#808080",
+        34: "#808080",
+        35: "#808080",
+        36: "#808080",
+        37: "#808080",
+        38: "#808080",
+        39: "#808080",
+        40: "#808080",
+        41: "#808080",
+        42: "#808080",
+        43: "#808080",
+        44: "#808080",
+        45: "#808080",
+        46: "#808080",
+        47: "#808080",
+        48: "#808080",
+        49: "#808080",
+        50: "#808080",
+        51: "#808080",
+      },
+      duration: 1.0,
+    };
+    this.state = {
+      selectedPanelIndex: 0,
+      selectedFrameIndex: 0,
+      frames: {
+        0: JSON.parse(JSON.stringify(this.defaultFrame)), // clones defaultFrame object
+      },
+      frameCount: 1,
+      currColor: "#808080",
+      playing: false,
+    };
+    this.updateColor = this.updateColor.bind(this);
+    this.selectPanel = this.selectPanel.bind(this);
+    this.selectFrame = this.selectFrame.bind(this);
+    this.addFrame = this.addFrame.bind(this);
+    this.deleteFrame = this.deleteFrame.bind(this);
+    this.duplicateFrame = this.duplicateFrame.bind(this);
+    this.updatePanelColor = this.updatePanelColor.bind(this);
+    this.updateDuration = this.updateDuration.bind(this);
+    this.playPreview = this.playPreview.bind(this);
+    this.goToNextFrame = this.goToNextFrame.bind(this);
+    this.pausePreview = this.pausePreview.bind(this);
   }
-}));
 
-export default function App() {
-  const classes = useStyles();
-  const defaultFrame = {
-    colors: {
-      0: "#808080",
-      1: "#808080",
-      2: "#808080",
-      3: "#808080",
-      4: "#808080",
-      5: "#808080",
-      6: "#808080",
-      7: "#808080",
-      8: "#808080",
-      9: "#808080",
-      10: "#808080",
-      11: "#808080",
-      12: "#808080",
-      13: "#808080",
-      14: "#808080",
-      15: "#808080",
-      16: "#808080",
-      17: "#808080",
-      18: "#808080",
-      19: "#808080",
-      20: "#808080",
-      21: "#808080",
-      22: "#808080",
-      23: "#808080",
-      24: "#808080",
-      25: "#808080",
-      26: "#808080",
-      27: "#808080",
-      28: "#808080",
-      29: "#808080",
-      30: "#808080",
-      31: "#808080",
-      32: "#808080",
-      33: "#808080",
-      34: "#808080",
-      35: "#808080",
-      36: "#808080",
-      37: "#808080",
-      38: "#808080",
-      39: "#808080",
-      40: "#808080",
-      41: "#808080",
-      42: "#808080",
-      43: "#808080",
-      44: "#808080",
-      45: "#808080",
-      46: "#808080",
-      47: "#808080",
-      48: "#808080",
-      49: "#808080",
-      50: "#808080",
-      51: "#808080"
-    },
-    duration: 1
-  };
-  const [selectedPanelIndex, setPanelIndex] = React.useState(0);
-  const [selectedFrameIndex, setFrameIndex] = React.useState(0);
-  const [frames, setFrames] = React.useState({
-    0: JSON.parse(JSON.stringify(defaultFrame)) // clones defaultFrame object
-  });
-  const [frameCount, setFrameCount] = React.useState(1);
-  const [currColor, setCurrColor] = React.useState("#808080");
-  const [playing, setPlaying] = React.useState(false);
-
-  function updateColor(newColor) {
-    setCurrColor(newColor);
+  updateColor(newColor) {
+    this.setState({
+      currColor: newColor,
+    });
   }
 
-  function selectPanel(newPanelIndex) {
-    setPanelIndex(newPanelIndex);
-    updatePanelColor(currColor, newPanelIndex);
+  selectPanel(newPanelIndex) {
+    this.setState({
+      selectedPanelIndex: newPanelIndex,
+    });
+    this.updatePanelColor(this.state.currColor, newPanelIndex);
     console.log("Panel index: " + newPanelIndex);
   }
 
-  function selectFrame(newFrameIndex) {
-    if (0 <= newFrameIndex && newFrameIndex < frameCount) {
-      setFrameIndex(newFrameIndex);
+  selectFrame(newFrameIndex) {
+    if (0 <= newFrameIndex && newFrameIndex < this.state.frameCount) {
+      this.setState({
+        selectedFrameIndex: newFrameIndex,
+      });
       console.log("Frame index: " + newFrameIndex);
     } else {
       console.log("Out of bounds frame index.");
     }
   }
 
-  function addFrame() {
-    var oldSize = frameCount;
+  addFrame() {
+    var oldSize = this.state.frameCount;
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      newFrames[ctr] = JSON.parse(JSON.stringify(this.state.frames[i]));
       ctr++;
-      if (i === selectedFrameIndex) {
-        newFrames[ctr] = JSON.parse(JSON.stringify(defaultFrame));
+      if (i === this.state.selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(this.defaultFrame));
         ctr++;
       }
     }
-    setFrames(newFrames);
-    setFrameCount(oldSize + 1);
-    setFrameIndex(selectedFrameIndex + 1);
-    console.log("Frame duplicated. Frames size: " + frameCount);
+    this.setState({
+      frames: newFrames,
+      frameCount: oldSize + 1,
+      selectedFrameIndex: this.state.selectedFrameIndex + 1,
+    });
+    console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
 
-  function deleteFrame() {
-    var oldSize = frameCount;
+  deleteFrame() {
+    var oldSize = this.state.frameCount;
 
     if (oldSize <= 1) {
       console.log("Cannot delete frame when frame count == 1");
@@ -133,140 +157,183 @@ export default function App() {
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      if (i !== selectedFrameIndex) {
-        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      if (i !== this.state.selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(this.state.frames[i]));
         ctr++;
       }
     }
-    setFrames(newFrames);
-    setFrameCount(oldSize - 1);
-    if (selectedFrameIndex === oldSize - 1) {
-      selectFrame(selectedFrameIndex - 1);
+    var newFrameIndex = this.state.selectedFrameIndex;
+    if (newFrameIndex === oldSize - 1) {
+      newFrameIndex = newFrameIndex - 1;
     }
-    console.log("Frame deleted. Frames size: " + frameCount);
+    this.setState({
+      frames: newFrames,
+      frameCount: oldSize - 1,
+      selectedFrameIndex: newFrameIndex,
+    });
+    console.log("Frame deleted. Frames size: " + this.state.frameCount);
   }
 
-  function duplicateFrame() {
-    var oldSize = frameCount;
+  duplicateFrame() {
+    var oldSize = this.state.frameCount;
     const newFrames = {};
     let ctr = 0;
     for (let i = 0; i < oldSize; i++) {
-      newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      newFrames[ctr] = JSON.parse(JSON.stringify(this.state.frames[i]));
       ctr++;
-      if (i === selectedFrameIndex) {
-        newFrames[ctr] = JSON.parse(JSON.stringify(frames[i]));
+      if (i === this.state.selectedFrameIndex) {
+        newFrames[ctr] = JSON.parse(JSON.stringify(this.state.frames[i]));
         ctr++;
       }
     }
-    setFrames(newFrames);
-    setFrameCount(oldSize + 1);
-    setFrameIndex(selectedFrameIndex + 1);
-    console.log("Frame duplicated. Frames size: " + frameCount);
+    this.setState({
+      frames: newFrames,
+      frameCount: oldSize + 1,
+      selectedFrameIndex: this.state.selectedFrameIndex + 1,
+    });
+    console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
 
-  function updatePanelColor(newColor, panelIndex) {
-    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
+  updatePanelColor(newColor, panelIndex) {
+    var updatedFrame = JSON.parse(
+      JSON.stringify(this.state.frames[this.state.selectedFrameIndex])
+    );
     updatedFrame.colors[panelIndex] = newColor;
-    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
+    this.setState({
+      frames: {
+        ...this.state.frames,
+        [this.state.selectedFrameIndex]: updatedFrame,
+      },
+    });
     console.log(
-      "Frame " + selectedFrameIndex + ", Panel " + panelIndex + " color changed"
+      "Frame " +
+        this.state.selectedFrameIndex +
+        ", Panel " +
+        panelIndex +
+        " color changed"
     );
   }
 
-  function updateDuration(newDuration, frameIndex) {
-    var updatedFrame = JSON.parse(JSON.stringify(frames[selectedFrameIndex]));
+  updateDuration(newDuration, frameIndex) {
+    var updatedFrame = JSON.parse(
+      JSON.stringify(this.state.frames[frameIndex])
+    );
     updatedFrame.duration = newDuration;
-    setFrames({ ...frames, [selectedFrameIndex]: updatedFrame });
-    console.log("Frame " + selectedFrameIndex + " time changed");
+    this.setState({
+      frames: { ...this.state.frames, [frameIndex]: updatedFrame },
+    });
+    console.log("Frame " + frameIndex + " time changed");
   }
 
-  function playPreview() {
-    setPlaying(true);
-    console.log("Play: " + frames[selectedFrameIndex].duration);
-    setTimeout(previewNextFrame, frames[selectedFrameIndex].duration * 1000);
+  playPreview() {
+    this.setState({
+      playing: true,
+    });
+    this.timer = setTimeout(
+      this.goToNextFrame,
+      this.state.frames[this.state.selectedFrameIndex].duration * 1000
+    );
   }
 
-  function previewNextFrame() {
-    if (playing) {
-      if (selectedFrameIndex === frameCount - 1) {
-        selectFrame(0);
-      } else {
-        selectFrame(selectedFrameIndex + 1);
-      }
-      playPreview();
+  goToNextFrame() {
+    console.log("previewing next frame: " + this.state.selectedFrameIndex);
+    var nextIndex;
+    if (this.state.selectedFrameIndex === this.state.frameCount - 1) {
+      nextIndex = 0;
+    } else {
+      nextIndex = this.state.selectedFrameIndex + 1;
     }
+    this.selectFrame(nextIndex);
+    this.playPreview();
   }
 
-  function pausePreview() {
-    setPlaying(false);
+  pausePreview() {
+    this.setState({
+      playing: false,
+    });
+    clearTimeout(this.timer);
   }
 
-  return (
-    <div>
-      <Header name="Srinu Lade" frames={frames} />
-      <Panels
-        colors={Object.values(frames[selectedFrameIndex].colors)}
-        selectedPanelIndex={selectedPanelIndex}
-        selectPanel={selectPanel}
-      />
-      <ColorSelector selectedColor={currColor} updateColor={updateColor} />
-      <div id="frame-view">
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<AddBoxIcon />}
-          onClick={addFrame}
-        >
-          Add Frame
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<AddToPhotosIcon />}
-          onClick={duplicateFrame}
-        >
-          Duplicate Frame
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          startIcon={<DeleteIcon />}
-          onClick={deleteFrame}
-        >
-          Delete Frame
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<PlayIcon />}
-          onClick={playPreview}
-          disabled={playing}
-        >
-          Play Preview
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<PauseIcon />}
-          onClick={pausePreview}
-          disabled={!playing}
-        >
-          Pause Preview
-        </Button>
-        <br />
-        <Frames
-          frames={Object.values(frames)}
-          addFrame={addFrame}
-          selectedFrameIndex={selectedFrameIndex}
-          selectFrame={selectFrame}
-          updateDuration={updateDuration}
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div>
+        <Header name="Srinu Lade" frames={this.state.frames} />
+        <Panels
+          colors={Object.values(
+            this.state.frames[this.state.selectedFrameIndex].colors
+          )}
+          selectedPanelIndex={this.state.selectedPanelIndex}
+          selectPanel={this.selectPanel}
         />
+        <ColorSelector
+          selectedColor={this.state.currColor}
+          updateColor={this.updateColor}
+        />
+        <div id="frame-view">
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<AddBoxIcon />}
+            onClick={this.addFrame}
+          >
+            Add Frame
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<AddToPhotosIcon />}
+            onClick={this.duplicateFrame}
+          >
+            Duplicate Frame
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<DeleteIcon />}
+            onClick={this.deleteFrame}
+          >
+            Delete Frame
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<PlayIcon />}
+            onClick={this.playPreview}
+            disabled={this.state.playing}
+          >
+            Preview
+          </Button>
+          <IconButton
+            className={classes.button}
+            aria-label="pause"
+            color="secondary"
+            onClick={this.pausePreview}
+            disabled={!this.state.playing}
+          >
+            <PauseIcon />
+          </IconButton>
+          <br />
+          <Frames
+            frames={Object.values(this.state.frames)}
+            addFrame={this.addFrame}
+            selectedFrameIndex={this.state.selectedFrameIndex}
+            selectFrame={this.selectFrame}
+            updateDuration={this.updateDuration}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
