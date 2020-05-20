@@ -3,7 +3,7 @@ import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 import Frames from "./frame-components/Frames";
-import { Button, IconButton } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -14,8 +14,11 @@ import PropTypes from "prop-types";
 
 const styles = theme => ({
   button: {
-    margin: "10px",
+    margin: "0px 5px",
   },
+  previewBtn: {
+      margin: "0px 5px 0px 30px",
+  }
 });
 
 class App extends React.Component {
@@ -334,23 +337,13 @@ class App extends React.Component {
           </Button>
           <Button
             variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<PlayIcon />}
-            onClick={this.playPreview}
-            disabled={this.state.playing}
+            color={this.state.playing ? "secondary" : "primary"}
+            className={classes.previewBtn}
+            startIcon={this.state.playing ? <PauseIcon /> : <PlayIcon />}
+            onClick={this.state.playing ? this.pausePreview : this.playPreview}
           >
             Preview
           </Button>
-          <IconButton
-            className={classes.button}
-            aria-label="pause"
-            color="secondary"
-            onClick={this.pausePreview}
-            disabled={!this.state.playing}
-          >
-            <PauseIcon />
-          </IconButton>
           <br />
           <Frames
             frames={Object.values(this.state.frames)}
