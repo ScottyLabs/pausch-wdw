@@ -9,8 +9,8 @@ export default function Panel(props) {
         backgroundColor: props.color,
         borderColor: props.isSelected ? "#3f51b5" : "#808080"
       }}
-      onClick={function() {
-        props.selectPanel(props.index)
+      onClick={function(e) {
+        props.selectPanel(props.index, e)
       }}
     >
       <img src={img} alt="Pausch Design" />

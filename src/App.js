@@ -79,7 +79,7 @@ class App extends React.Component {
       duration: 1.0,
     };
     this.state = {
-      selectedPanelIndex: 0,
+      selectedPanelIndex: -1,
       selectedFrameIndex: 0,
       frames: {
         0: JSON.parse(JSON.stringify(this.defaultFrame)), // clones defaultFrame object
@@ -95,6 +95,7 @@ class App extends React.Component {
     this.deleteFrame = this.deleteFrame.bind(this);
     this.duplicateFrame = this.duplicateFrame.bind(this);
     this.updatePanelColor = this.updatePanelColor.bind(this);
+    this.updatePanelsColor = this.updatePanelsColor.bind(this);
     this.updateDuration = this.updateDuration.bind(this);
     this.playPreview = this.playPreview.bind(this);
     this.goToNextFrame = this.goToNextFrame.bind(this);
@@ -104,14 +105,23 @@ class App extends React.Component {
   updateColor(newColor) {
     this.setState({
       currColor: newColor,
+      selectedPanelIndex: -1,
     });
   }
 
-  selectPanel(newPanelIndex) {
+  selectPanel(newPanelIndex, e) {
+    console.log("prev panel index: " + this.state.selectedPanelIndex);
+    if (e.shiftKey && this.state.selectedPanelIndex !== -1) {
+      console.log("shift key pressed");
+      let minIndex = Math.min(this.state.selectedPanelIndex, newPanelIndex);
+      let maxIndex = Math.max(this.state.selectedPanelIndex, newPanelIndex);
+      this.updatePanelsColor(this.state.currColor, minIndex, maxIndex + 1);
+    } else {
+      this.updatePanelColor(this.state.currColor, newPanelIndex);
+    }
     this.setState({
       selectedPanelIndex: newPanelIndex,
     });
-    this.updatePanelColor(this.state.currColor, newPanelIndex);
     console.log("Panel index: " + newPanelIndex);
   }
 
@@ -210,6 +220,29 @@ class App extends React.Component {
         this.state.selectedFrameIndex +
         ", Panel " +
         panelIndex +
+        " color changed"
+    );
+  }
+
+  // colors panels startPanelIndex UP TO but NOT INCLUDING endPanelIndex
+  updatePanelsColor(newColor, startPanelIndex, endPanelIndex) {
+    var updatedFrame = JSON.parse(
+      JSON.stringify(this.state.frames[this.state.selectedFrameIndex])
+    );
+    for (let i = startPanelIndex; i < endPanelIndex; i++) {
+      updatedFrame.colors[i] = newColor;
+    }
+    this.setState({
+      frames: {
+        ...this.state.frames,
+        [this.state.selectedFrameIndex]: updatedFrame,
+      },
+    });
+    console.log(
+      "Frame " +
+        this.state.selectedFrameIndex +
+        ", Panels " +
+        startPanelIndex + "-" + endPanelIndex +
         " color changed"
     );
   }
