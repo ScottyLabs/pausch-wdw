@@ -3,7 +3,8 @@ import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  flex: { flex: 1 }
+  flex: { flex: 1 },
+  button: { marginLeft: 50 }
 });
 
 const Header = props => {
@@ -17,7 +18,7 @@ const Header = props => {
     },
   }
   */
-  const [status, setStatus] = React.useState("Nothing Sent Yet");
+  const [status, setStatus] = React.useState("Unsent");
   const classes = useStyles();
 
   const sendTheme = async () => {
@@ -38,11 +39,14 @@ const Header = props => {
   return (
     <AppBar position="static" style={{ marginBottom: 30 }}>
       <Toolbar>
-        <Typography variant="h6" color="inherit" className={classes.flex}>
+      <Typography variant="h6" color="inherit" className={classes.flex}>
           Bridge UI Editor - {props.name}
         </Typography>
-        <Button color="inherit">Status: {status}</Button>
-        <Button color="inherit" onClick={sendTheme}>
+        <Typography variant="h7" color="inherit">
+          <b>Status</b>: {status}
+        </Typography>
+        {/* <Button color="inherit">Status: {status}</Button> */}
+        <Button color="inherit" onClick={sendTheme} className={classes.button}>
           Send Theme
         </Button>
       </Toolbar>
