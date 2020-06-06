@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Panels from "./Panels";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
@@ -14,10 +14,10 @@ import PropTypes from "prop-types";
 
 const styles = theme => ({
   button: {
-    margin: "0px 5px",
+    margin: "0px 5px"
   },
   previewBtn: {
-      margin: "0px 5px 0px 30px",
+    margin: "0px 5px 0px 30px"
   }
 });
 
@@ -77,19 +77,19 @@ class App extends React.Component {
         48: "#808080",
         49: "#808080",
         50: "#808080",
-        51: "#808080",
+        51: "#808080"
       },
-      duration: 1.0,
+      duration: 1.0
     };
     this.state = {
       selectedPanelIndex: -1,
       selectedFrameIndex: 0,
       frames: {
-        0: JSON.parse(JSON.stringify(this.defaultFrame)), // clones defaultFrame object
+        0: JSON.parse(JSON.stringify(this.defaultFrame)) // clones defaultFrame object
       },
       frameCount: 1,
       currColor: "#808080",
-      playing: false,
+      playing: false
     };
     this.updateColor = this.updateColor.bind(this);
     this.selectPanel = this.selectPanel.bind(this);
@@ -108,7 +108,7 @@ class App extends React.Component {
   updateColor(newColor) {
     this.setState({
       currColor: newColor,
-      selectedPanelIndex: -1,
+      selectedPanelIndex: -1
     });
   }
 
@@ -123,7 +123,7 @@ class App extends React.Component {
       this.updatePanelColor(this.state.currColor, newPanelIndex);
     }
     this.setState({
-      selectedPanelIndex: newPanelIndex,
+      selectedPanelIndex: newPanelIndex
     });
     console.log("Panel index: " + newPanelIndex);
   }
@@ -131,7 +131,7 @@ class App extends React.Component {
   selectFrame(newFrameIndex) {
     if (0 <= newFrameIndex && newFrameIndex < this.state.frameCount) {
       this.setState({
-        selectedFrameIndex: newFrameIndex,
+        selectedFrameIndex: newFrameIndex
       });
       console.log("Frame index: " + newFrameIndex);
     } else {
@@ -154,7 +154,7 @@ class App extends React.Component {
     this.setState({
       frames: newFrames,
       frameCount: oldSize + 1,
-      selectedFrameIndex: this.state.selectedFrameIndex + 1,
+      selectedFrameIndex: this.state.selectedFrameIndex + 1
     });
     console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
@@ -182,7 +182,7 @@ class App extends React.Component {
     this.setState({
       frames: newFrames,
       frameCount: oldSize - 1,
-      selectedFrameIndex: newFrameIndex,
+      selectedFrameIndex: newFrameIndex
     });
     console.log("Frame deleted. Frames size: " + this.state.frameCount);
   }
@@ -202,7 +202,7 @@ class App extends React.Component {
     this.setState({
       frames: newFrames,
       frameCount: oldSize + 1,
-      selectedFrameIndex: this.state.selectedFrameIndex + 1,
+      selectedFrameIndex: this.state.selectedFrameIndex + 1
     });
     console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
@@ -215,8 +215,8 @@ class App extends React.Component {
     this.setState({
       frames: {
         ...this.state.frames,
-        [this.state.selectedFrameIndex]: updatedFrame,
-      },
+        [this.state.selectedFrameIndex]: updatedFrame
+      }
     });
     console.log(
       "Frame " +
@@ -238,14 +238,16 @@ class App extends React.Component {
     this.setState({
       frames: {
         ...this.state.frames,
-        [this.state.selectedFrameIndex]: updatedFrame,
-      },
+        [this.state.selectedFrameIndex]: updatedFrame
+      }
     });
     console.log(
       "Frame " +
         this.state.selectedFrameIndex +
         ", Panels " +
-        startPanelIndex + "-" + endPanelIndex +
+        startPanelIndex +
+        "-" +
+        endPanelIndex +
         " color changed"
     );
   }
@@ -256,14 +258,14 @@ class App extends React.Component {
     );
     updatedFrame.duration = newDuration;
     this.setState({
-      frames: { ...this.state.frames, [frameIndex]: updatedFrame },
+      frames: { ...this.state.frames, [frameIndex]: updatedFrame }
     });
     console.log("Frame " + frameIndex + " time changed");
   }
 
   playPreview() {
     this.setState({
-      playing: true,
+      playing: true
     });
     this.timer = setTimeout(
       this.goToNextFrame,
@@ -285,7 +287,7 @@ class App extends React.Component {
 
   pausePreview() {
     this.setState({
-      playing: false,
+      playing: false
     });
     clearTimeout(this.timer);
   }
@@ -359,7 +361,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(App);
