@@ -21,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.defaultFrame = {

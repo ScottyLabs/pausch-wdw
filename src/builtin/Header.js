@@ -1,49 +1,36 @@
 import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
+import { withStyles } from "@material-ui/styles";
 import {
   Stitch,
-  AnonymousCredential,
-  RemoteMongoClient
+  RemoteMongoClient,
+  AnonymousCredential
 } from "mongodb-stitch-browser-sdk";
+import PropTypes from "prop-types";
 
-const useStyles = makeStyles({
+
+const styles = theme => ({
   flex: { flex: 1 },
   button: { marginLeft: 50 }
 });
 
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      /*
-      todos: [],
-      value: "",
-      */
-      status = "",
-      classes = useStyles()
+      status: "Unsent",
+      sending: false
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.displayTodos = this.displayTodos.bind(this);
-    this.addTodo = this.addTodo.bind(this);
+    this.sendTheme = this.sendTheme.bind(this);
   }
 
-  sendTheme = async () => {
-    setStatus("Pending");
-    const res = await fetch("http://pbridge.adm.cs.cmu.edu:5000/theme", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name: props.name, panels: props.colors })
-    });
-
-    const ans = await res.json();
-    setStatus(ans);
-    console.log(ans);
+  sendTheme() {
+    this.setState({status: "Pending", sending: true});
+    this.collection.insertOne({user_id: this.props.name, design: this.props.frames})
+    .then(result => this.setState({status: "Sent", sending: false}))
+    .catch(err => {console.error("Failed to insert item:" + {err}); this.setState({status: "Failed", sending: false});});
   };
 
   componentDidMount() {
@@ -56,25 +43,23 @@ class Header extends Component {
       "mongodb-atlas"
     );
     // Get a reference to the todo database
-    this.db = mongodb.db("pausch-bride");
+    this.collection = mongodb.db("bridge").collection("designs");
+    this.client.auth.loginWithCredential(new AnonymousCredential()).then(() => console.log("Authenticated")).catch(console.error);
   }
-  
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-  
+
   render() {
+    const { classes } = this.props;
+
     return (
       <AppBar position="static" style={{ marginBottom: 30 }}>
       <Toolbar>
         <Typography variant="h6" color="inherit" className={classes.flex}>
-          Bridge UI Editor - {props.name}
+          Bridge UI Editor - {this.props.name}
         </Typography>
-        <Typography variant="h7" color="inherit">
-          <b>Status</b>: {status}
+        <Typography variant="subtitle1" color="inherit">
+          <b>Status</b>: {this.state.status}
         </Typography>
-        {/* <Button color="inherit">Status: {status}</Button> */}
-        <Button color="inherit" onClick={sendTheme} className={classes.button}>
+        <Button color="inherit" onClick={this.sendTheme} className={classes.button} disabled={this.state.sending}>
           Send Theme
         </Button>
       </Toolbar>
@@ -84,7 +69,11 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(Header);
 
 /*
 class Header extends Component {
@@ -97,7 +86,7 @@ class Header extends Component {
       ...
     },
   }
-  
+
  const [status, setStatus] = React.useState("Unsent");
  const classes = useStyles();
 
@@ -117,7 +106,7 @@ class Header extends Component {
   };
 
   return (
-    
+
   );
 };
 
