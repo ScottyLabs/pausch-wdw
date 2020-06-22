@@ -4,6 +4,15 @@ import React from "react";
 import img from "../assets/pausch-design.jpg";
 
 export default function Panel(props) {
+  /*
+  props = {
+    index: 0,
+    color: '#808080',
+    isSelected: false,
+    selectPanel: number -> ()
+  }
+  */
+
   return (
     <div
       className="panel"
