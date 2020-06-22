@@ -2,10 +2,7 @@ import React, { Component } from "react";
 
 // Components
 import Panels from "./components/Panels";
-import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
-
-const user_id = "acarnegie";
 
 class App extends Component {
   constructor(props) {
