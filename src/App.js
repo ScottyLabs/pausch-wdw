@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPanelIndex: -1,
+      selectedPanelIndex: 0,
       currColor: "#808080",
       colors: {
         0: "#808080",
@@ -32,7 +32,6 @@ class App extends Component {
 
   selectColor(newColor) {
     this.setState({
-      selectedPanelIndex: -1,
       currColor: newColor,
     });
   }
@@ -42,7 +41,7 @@ class App extends Component {
     newColors[newPanelIndex] = this.state.currColor;
     this.setState({
       selectedPanelIndex: newPanelIndex,
-      colors: newColors
+      colors: newColors,
     });
     console.log("color", this.state.currColor);
     console.log("panel", newPanelIndex);
