@@ -1,7 +1,10 @@
 import React from "react";
-import { Paper } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+
 import { ChromePicker, SwatchesPicker } from "react-color";
+
+// MUI
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   root: {

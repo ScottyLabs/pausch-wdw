@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+
+// MUI
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/styles";
+import PropTypes from "prop-types";
+
+// MongoDB
 import {
   Stitch,
   RemoteMongoClient,
   AnonymousCredential,
 } from "mongodb-stitch-browser-sdk";
-import PropTypes from "prop-types";
 
 const styles = () => ({
   flex: { flex: 1 },

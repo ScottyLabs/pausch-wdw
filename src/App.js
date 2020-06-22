@@ -7,7 +7,7 @@ import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
 
 // MUI
-import { Button } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import DeleteIcon from "@material-ui/icons/Delete";
