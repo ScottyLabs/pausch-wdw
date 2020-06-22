@@ -1,4 +1,6 @@
 import React from "react";
+
+// components
 import SmallPanelView from "./SmallPanelView";
 import Time from "./Time.js";
 

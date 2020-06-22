@@ -1,4 +1,6 @@
 import React from "react";
+
+// components
 import Frame from "./Frame";
 
 export default function Frames(props) {

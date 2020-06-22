@@ -1,4 +1,6 @@
 import React from "react";
+
+// components
 import Panel from "./Panel";
 
 export default function Panels(props) {
