@@ -39,12 +39,11 @@ class App extends Component {
   selectPanel(newPanelIndex) {
     const newColors = this.state.colors;
     newColors[newPanelIndex] = this.state.currColor;
+
     this.setState({
       selectedPanelIndex: newPanelIndex,
       colors: newColors,
     });
-    console.log("color", this.state.currColor);
-    console.log("panel", newPanelIndex);
   }
 
   render() {
