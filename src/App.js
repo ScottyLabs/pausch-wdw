@@ -22,13 +22,12 @@ class App extends Component {
         5: "#808080",
         6: "#808080",
         7: "#808080",
-        8: "#808080"
-      }
+        8: "#808080",
+      },
     };
 
     this.selectColor = this.selectColor.bind(this);
     this.selectPanel = this.selectPanel.bind(this);
-    this.updatePanelColor = this.updatePanelColor.bind(this);
   }
 
   selectColor(newColor) {
@@ -39,32 +38,31 @@ class App extends Component {
   }
 
   selectPanel(newPanelIndex) {
-    this.updatePanelColor(this.state.currColor, newPanelIndex);
+    const newColors = this.state.colors;
+    newColors[newPanelIndex] = this.state.currColor;
     this.setState({
       selectedPanelIndex: newPanelIndex,
+      colors: newColors
     });
-  }
-
-  updatePanelColor(newColor, panelIndex) {
-    this.setState({
-      ...colors, [panelIndex]: newColor
-    });
+    console.log("color", this.state.currColor);
+    console.log("panel", newPanelIndex);
   }
 
   render() {
+    // a single frame of the colors lasting 10 seconds
     const frame = {
       0: {
         colors: this.state.colors,
-        duration: 1
-      }
+        duration: 10,
+      },
     };
 
     return (
       <div>
         <Header user_id={user_id} design={frame} />
         <Panels
-          colors={this.state.colors}
-          selectedPanelIndex={this.state.selectedPanelIndex}
+          colors={Object.values(this.state.colors)}
+          selectedIndex={this.state.selectedPanelIndex}
           selectPanel={this.selectPanel}
         />
         <ColorSelector
