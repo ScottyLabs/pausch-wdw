@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Components
-import Panels from "./components/Panels";
+import Panel from "./components/Panel";
 
 class App extends Component {
   render() {
