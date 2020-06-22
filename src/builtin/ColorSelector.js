@@ -3,14 +3,14 @@ import { Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { ChromePicker, SwatchesPicker } from "react-color";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     padding: "20px",
     backgroundColor: theme.palette.background.paper,
     width: "830px",
     height: "300px",
-    margin: "25px auto 0 auto"
-  }
+    margin: "25px auto 0 auto",
+  },
 });
 
 class ColorSelector extends React.Component {
@@ -23,23 +23,9 @@ class ColorSelector extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      panelIndex: 0,
-      selectedColor: "#808080"
-    };
-    this.state = { value: 0 };
-
     // the binding is necessary to make 'this' work in the callback
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeIndex = this.handleChangeIndex.bind(this);
-  }
-
-  handleChange(_, value) {
-    this.setState({ value });
-  }
-
-  handleChangeIndex(index) {
-    this.setState({ value: index });
   }
 
   render() {
@@ -50,13 +36,13 @@ class ColorSelector extends React.Component {
         <div id="colorSelector">
           <ChromePicker
             color={selectedColor}
-            onChangeComplete={color => updateColor(color.hex)}
+            onChangeComplete={(color) => updateColor(color.hex)}
             //remove slider option on picker
             disableAlpha={true}
           />
           <SwatchesPicker
             color={selectedColor}
-            onChangeComplete={color => updateColor(color.hex)}
+            onChangeComplete={(color) => updateColor(color.hex)}
             width={500}
             height={230}
           />
