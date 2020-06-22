@@ -39,26 +39,16 @@ class App extends Component {
   selectPanel(newPanelIndex) {
     const newColors = this.state.colors;
     newColors[newPanelIndex] = this.state.currColor;
+
     this.setState({
       selectedPanelIndex: newPanelIndex,
       colors: newColors,
     });
-    console.log("color", this.state.currColor);
-    console.log("panel", newPanelIndex);
   }
 
   render() {
-    // a single frame of the colors lasting 10 seconds
-    const frame = {
-      0: {
-        colors: this.state.colors,
-        duration: 10,
-      },
-    };
-
     return (
       <div>
-        <Header user_id={user_id} design={frame} />
         <Panels
           colors={Object.values(this.state.colors)}
           selectedIndex={this.state.selectedPanelIndex}
