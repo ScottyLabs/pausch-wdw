@@ -2,7 +2,6 @@ import React from "react";
 import Panel from "./Panel";
 
 export default function Panels(props) {
-
   const menuItems = props.colors.map((color, i) => (
     <Panel
       key={i}

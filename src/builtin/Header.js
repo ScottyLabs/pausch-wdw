@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import {
-  Realm,
+  Stitch,
   RemoteMongoClient,
   AnonymousCredential,
 } from "mongodb-stitch-browser-sdk";
@@ -11,23 +11,15 @@ import PropTypes from "prop-types";
 const styles = () => ({
   flex: { flex: 1 },
   button: { marginLeft: 50 },
-  header: { marginBottom: 30 },
+  header: { amrginBottom: 30 },
 });
 
 const appId = "pausch-bridge-pmulj";
-const appConfig = {
-  id: appId,
-  timeout: 10000,
-}
-
-const TaskModel = {
-
-}
 
 class Header extends Component {
   /*
   props = {
-    user_id: 'acarnegie',
+    user_id: 'Andrew Carnegie',
     design: {
       0: {
         colors: {
@@ -53,6 +45,7 @@ class Header extends Component {
 
   sendTheme() {
     // insert design into database
+    console.log(this.props.design);
     this.setState({ statusText: "Pending", sending: true });
     this.collection
       .insertOne({ user_id: this.props.user_id, design: this.props.design })
@@ -64,36 +57,17 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    // initialie MongoDB database: https://docs.mongodb.com/realm/node/quick-start/
-    const app = new Realm.App(appConfig);
-    const credentials = Realm.Credentials.anonymous();
-    try {
-      const user = await app.logIn
-    } catch(err) {
-      console.error("Failed to log in", err);
-    }
-    // Get a reference to the todo database
+    // reference: http://stitch-sdks.s3-website-us-east-1.amazonaws.com/stitch-sdks/js/4/index.html
+    this.client = Stitch.initializeDefaultAppClient(appId);
+    const mongodb = this.client.getServiceClient(
+      RemoteMongoClient.factory,
+      "mongodb-atlas"
+    );
     this.collection = mongodb.db("bridge").collection("designs");
     this.client.auth
       .loginWithCredential(new AnonymousCredential())
       .then(() => console.log("Authenticated"))
       .catch(console.error);
-  }
-
-  async run() {
-    let user;
-    try {
-      const app = new Realm.App(appConfig);
-
-      const credentials = Realm.Credentials.anonymous();
-      user = await app.logIn(credentials);
-
-      console.log('Logged in with the user: ' + user.identity);
-    } catch(err) {
-      console.error("Failed to log in", err);
-    } finally {
-      // ...
-    }
   }
 
   render() {
@@ -106,7 +80,7 @@ class Header extends Component {
             Bridge UI Editor - {this.props.user_id}
           </Typography>
           <Typography variant="subtitle1" color="inherit">
-            <b>Status</b>: {this.state.statusTextText}
+            <b>Status</b>: {this.state.statusText}
           </Typography>
           <Button
             color="inherit"

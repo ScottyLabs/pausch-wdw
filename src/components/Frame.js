@@ -11,9 +11,9 @@ export default function Frame(props) {
     <div
       className="frame"
       style={{
-        borderColor: props.isSelected ? "#3f51b5" : "#808080"
+        borderColor: props.isSelected ? "#3f51b5" : "#808080",
       }}
-      onClick={function() {
+      onClick={function () {
         props.selectFrame(props.index);
       }}
     >

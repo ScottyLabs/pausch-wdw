@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import Panels from "./Panels";
+
+// Components
+import Panels from "./components/Panels";
+import Frames from "./components/Frames";
 import Header from "./builtin/Header";
 import ColorSelector from "./builtin/ColorSelector";
-import Frames from "./frame-components/Frames";
+
+// MUI
 import { Button } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
@@ -12,103 +16,110 @@ import PlayIcon from "@material-ui/icons/PlayArrowOutlined";
 import { withStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
-const styles = theme => ({
+const styles = () => ({
   button: {
-    margin: "0px 5px"
+    margin: "0px 5px",
   },
   previewBtn: {
-    margin: "0px 5px 0px 30px"
-  }
+    margin: "0px 5px 0px 30px",
+  },
 });
+
+const user_id = "acarnegie";
+
+const defaultFrame = {
+  colors: {
+    0: "#808080",
+    1: "#808080",
+    2: "#808080",
+    3: "#808080",
+    4: "#808080",
+    5: "#808080",
+    6: "#808080",
+    7: "#808080",
+    8: "#808080",
+    9: "#808080",
+    10: "#808080",
+    11: "#808080",
+    12: "#808080",
+    13: "#808080",
+    14: "#808080",
+    15: "#808080",
+    16: "#808080",
+    17: "#808080",
+    18: "#808080",
+    19: "#808080",
+    20: "#808080",
+    21: "#808080",
+    22: "#808080",
+    23: "#808080",
+    24: "#808080",
+    25: "#808080",
+    26: "#808080",
+    27: "#808080",
+    28: "#808080",
+    29: "#808080",
+    30: "#808080",
+    31: "#808080",
+    32: "#808080",
+    33: "#808080",
+    34: "#808080",
+    35: "#808080",
+    36: "#808080",
+    37: "#808080",
+    38: "#808080",
+    39: "#808080",
+    40: "#808080",
+    41: "#808080",
+    42: "#808080",
+    43: "#808080",
+    44: "#808080",
+    45: "#808080",
+    46: "#808080",
+    47: "#808080",
+    48: "#808080",
+    49: "#808080",
+    50: "#808080",
+    51: "#808080",
+  },
+  duration: 1.0,
+};
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.defaultFrame = {
-      colors: {
-        0: "#808080",
-        1: "#808080",
-        2: "#808080",
-        3: "#808080",
-        4: "#808080",
-        5: "#808080",
-        6: "#808080",
-        7: "#808080",
-        8: "#808080",
-        9: "#808080",
-        10: "#808080",
-        11: "#808080",
-        12: "#808080",
-        13: "#808080",
-        14: "#808080",
-        15: "#808080",
-        16: "#808080",
-        17: "#808080",
-        18: "#808080",
-        19: "#808080",
-        20: "#808080",
-        21: "#808080",
-        22: "#808080",
-        23: "#808080",
-        24: "#808080",
-        25: "#808080",
-        26: "#808080",
-        27: "#808080",
-        28: "#808080",
-        29: "#808080",
-        30: "#808080",
-        31: "#808080",
-        32: "#808080",
-        33: "#808080",
-        34: "#808080",
-        35: "#808080",
-        36: "#808080",
-        37: "#808080",
-        38: "#808080",
-        39: "#808080",
-        40: "#808080",
-        41: "#808080",
-        42: "#808080",
-        43: "#808080",
-        44: "#808080",
-        45: "#808080",
-        46: "#808080",
-        47: "#808080",
-        48: "#808080",
-        49: "#808080",
-        50: "#808080",
-        51: "#808080"
-      },
-      duration: 1.0
-    };
     this.state = {
       selectedPanelIndex: -1,
       selectedFrameIndex: 0,
       frames: {
-        0: JSON.parse(JSON.stringify(this.defaultFrame)) // clones defaultFrame object
+        0: JSON.parse(JSON.stringify(defaultFrame)), // clones defaultFrame object
       },
       frameCount: 1,
       currColor: "#808080",
-      playing: false
+      playing: false,
     };
-    this.updateColor = this.updateColor.bind(this);
+
+    this.selectColor = this.selectColor.bind(this);
     this.selectPanel = this.selectPanel.bind(this);
+
     this.selectFrame = this.selectFrame.bind(this);
     this.addFrame = this.addFrame.bind(this);
     this.deleteFrame = this.deleteFrame.bind(this);
     this.duplicateFrame = this.duplicateFrame.bind(this);
+
     this.updatePanelColor = this.updatePanelColor.bind(this);
     this.updatePanelsColor = this.updatePanelsColor.bind(this);
     this.updateDuration = this.updateDuration.bind(this);
+
     this.playPreview = this.playPreview.bind(this);
     this.goToNextFrame = this.goToNextFrame.bind(this);
     this.pausePreview = this.pausePreview.bind(this);
   }
 
-  updateColor(newColor) {
+  selectColor(newColor) {
     this.setState({
       currColor: newColor,
-      selectedPanelIndex: -1
+      selectedPanelIndex: -1,
     });
   }
 
@@ -123,7 +134,7 @@ class App extends Component {
       this.updatePanelColor(this.state.currColor, newPanelIndex);
     }
     this.setState({
-      selectedPanelIndex: newPanelIndex
+      selectedPanelIndex: newPanelIndex,
     });
     console.log("Panel index: " + newPanelIndex);
   }
@@ -131,7 +142,7 @@ class App extends Component {
   selectFrame(newFrameIndex) {
     if (0 <= newFrameIndex && newFrameIndex < this.state.frameCount) {
       this.setState({
-        selectedFrameIndex: newFrameIndex
+        selectedFrameIndex: newFrameIndex,
       });
       console.log("Frame index: " + newFrameIndex);
     } else {
@@ -147,14 +158,14 @@ class App extends Component {
       newFrames[ctr] = JSON.parse(JSON.stringify(this.state.frames[i]));
       ctr++;
       if (i === this.state.selectedFrameIndex) {
-        newFrames[ctr] = JSON.parse(JSON.stringify(this.defaultFrame));
+        newFrames[ctr] = JSON.parse(JSON.stringify(defaultFrame));
         ctr++;
       }
     }
     this.setState({
       frames: newFrames,
       frameCount: oldSize + 1,
-      selectedFrameIndex: this.state.selectedFrameIndex + 1
+      selectedFrameIndex: this.state.selectedFrameIndex + 1,
     });
     console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
@@ -182,7 +193,7 @@ class App extends Component {
     this.setState({
       frames: newFrames,
       frameCount: oldSize - 1,
-      selectedFrameIndex: newFrameIndex
+      selectedFrameIndex: newFrameIndex,
     });
     console.log("Frame deleted. Frames size: " + this.state.frameCount);
   }
@@ -202,7 +213,7 @@ class App extends Component {
     this.setState({
       frames: newFrames,
       frameCount: oldSize + 1,
-      selectedFrameIndex: this.state.selectedFrameIndex + 1
+      selectedFrameIndex: this.state.selectedFrameIndex + 1,
     });
     console.log("Frame duplicated. Frames size: " + this.state.frameCount);
   }
@@ -215,8 +226,8 @@ class App extends Component {
     this.setState({
       frames: {
         ...this.state.frames,
-        [this.state.selectedFrameIndex]: updatedFrame
-      }
+        [this.state.selectedFrameIndex]: updatedFrame,
+      },
     });
     console.log(
       "Frame " +
@@ -238,8 +249,8 @@ class App extends Component {
     this.setState({
       frames: {
         ...this.state.frames,
-        [this.state.selectedFrameIndex]: updatedFrame
-      }
+        [this.state.selectedFrameIndex]: updatedFrame,
+      },
     });
     console.log(
       "Frame " +
@@ -258,14 +269,14 @@ class App extends Component {
     );
     updatedFrame.duration = newDuration;
     this.setState({
-      frames: { ...this.state.frames, [frameIndex]: updatedFrame }
+      frames: { ...this.state.frames, [frameIndex]: updatedFrame },
     });
     console.log("Frame " + frameIndex + " time changed");
   }
 
   playPreview() {
     this.setState({
-      playing: true
+      playing: true,
     });
     this.timer = setTimeout(
       this.goToNextFrame,
@@ -287,7 +298,7 @@ class App extends Component {
 
   pausePreview() {
     this.setState({
-      playing: false
+      playing: false,
     });
     clearTimeout(this.timer);
   }
@@ -297,7 +308,7 @@ class App extends Component {
 
     return (
       <div>
-        <Header name="Srinu Lade" frames={this.state.frames} />
+        <Header user_id={user_id} design={this.state.frames} />
         <Panels
           colors={Object.values(
             this.state.frames[this.state.selectedFrameIndex].colors
@@ -307,7 +318,7 @@ class App extends Component {
         />
         <ColorSelector
           selectedColor={this.state.currColor}
-          updateColor={this.updateColor}
+          selectColor={this.selectColor}
         />
         <div id="frame-view">
           <Button
@@ -361,7 +372,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(App);

@@ -17,32 +17,25 @@ class ColorSelector extends React.Component {
   /*
   props = {
     selectedColor: '#808080',
-    updateColor: color_string -> ()
+    selectColor: color_string -> ()
   }
   */
 
-  constructor(props) {
-    super(props);
-    // the binding is necessary to make 'this' work in the callback
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChangeIndex = this.handleChangeIndex.bind(this);
-  }
-
   render() {
-    const { classes, selectedColor, updateColor } = this.props;
+    const { classes, selectedColor, selectColor } = this.props;
 
     return (
       <Paper className={classes.root}>
         <div id="colorSelector">
           <ChromePicker
             color={selectedColor}
-            onChangeComplete={(color) => updateColor(color.hex)}
+            onChangeComplete={(color) => selectColor(color.hex)}
             //remove slider option on picker
             disableAlpha={true}
           />
           <SwatchesPicker
             color={selectedColor}
-            onChangeComplete={(color) => updateColor(color.hex)}
+            onChangeComplete={(color) => selectColor(color.hex)}
             width={500}
             height={230}
           />
