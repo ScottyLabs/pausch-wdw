@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './intermediate.css';
+import Intermediate from './intermediate';
 
-import './index.css';
-import App from './App';
+ReactDOM.render(
+  <React.StrictMode>
+    <Intermediate />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
