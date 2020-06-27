@@ -18,7 +18,22 @@ subject: react
 - Type 'npm' in terminal to check that its installed
 
 ## 3. Get Boilerplate
-- Go to: https://github.com/peterwu99/pausch
-- Click the Green 'Clone or download' button and click 'Download Zip'
+- Go to: https://github.com/ScottyLabs/pausch-wdw/releases
+- Download the 'basics' .zip file (or the corresponding .zip file to skip ahead to 'data', 'state', or 'finishing touches')
 - Unzip the downloaded file
-- Starter code is in 'App.js' file
+
+## 4. Basics
+- create Panel.js in /components
+- add <Panel> to App.js
+
+## 5. Data
+- blah blah
+
+## 6. State
+- blah blah
+
+## 7. Finishing Touches
+- blah blah
+
+## 8. Additional Challenge: Frames
+- blah blah
