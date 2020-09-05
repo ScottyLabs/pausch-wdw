@@ -7,7 +7,7 @@ import {
   RemoteMongoClient,
   UserPasswordCredential
 } from "mongodb-stitch-browser-sdk";
-import './intermediate.css';
+import './styles/intermediate.css';
 import panelImage from "./assets/pausch-design.jpg";
 
 
@@ -342,7 +342,7 @@ class Login extends Component {
   }
 }
 
-export default class Intermediate extends Component {
+export default class IntermediateApp extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

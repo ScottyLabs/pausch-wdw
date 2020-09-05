@@ -86,7 +86,7 @@ const defaultFrame = {
   duration: 1.0,
 };
 
-class App extends Component {
+class FramesApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -372,8 +372,8 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+FramesApp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(FramesApp);

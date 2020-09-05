@@ -8,7 +8,7 @@ import ColorSelector from "./builtin/basic/ColorSelector";
 
 const user_id = "acarnegie";
 
-class App extends Component {
+class BasicApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,4 +73,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default BasicApp;
