@@ -1,7 +1,7 @@
 import React from "react";
 
 // assets
-import img from "../assets/pausch-design.jpg";
+import img from "../../assets/pausch-design.jpg";
 
 export default function Panel(props) {
   /*
