@@ -10,6 +10,9 @@ import {
 import './styles/intermediate.css';
 import panelImage from "./assets/pausch-design.jpg";
 
+// MUI
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 
 function Panel(props) {
   return (
@@ -251,7 +254,16 @@ class QueueView extends Component {
     return (
       <div className="queue-view">
         <div className="queue">
-        <div className="loadmore"><button onClick={() => this.getRequests()}>Load more</button></div>
+        <div className="loadmore">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.getRequests()}
+          >
+            Load More
+          </Button>
+        
+        </div>
           <Queue queue={this.state.queue} 
                 onAccept={(i) => this.handleAccept(i)}
                 onReject={(i) => this.handleReject(i)} 
@@ -308,7 +320,7 @@ class Login extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert('Incorrect password.')
+        alert('Incorrect username or password.')
         this.setState({
           username: "",
           password: ""
@@ -325,6 +337,7 @@ class Login extends Component {
   render() {
     return (
     <div id="login">
+      <Paper className="login-form">
       <form onSubmit={(e) => this.handleLogin(e)}>
         <label>Username:</label><br />
         <input type="text" name="username" 
@@ -335,9 +348,15 @@ class Login extends Component {
         <input type="password" name="password" 
             value={this.state.password} onChange={(e) => this.handleChange(e)} />
         <br />
-        <input type="submit" value="Submit" />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Submit
+          </Button>
       </form>
-
+      </Paper>
     </div> )
   }
 }
