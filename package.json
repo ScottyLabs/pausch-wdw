@@ -10,7 +10,7 @@
     "react-dom": "^16.10.2",
     "react-horizontal-scrolling-menu": "^0.7.6",
     "react-numeric-input": "^2.2.3",
-    "react-scripts": "^3.4.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
